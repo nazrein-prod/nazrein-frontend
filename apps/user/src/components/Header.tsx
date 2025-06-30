@@ -1,25 +1,17 @@
-"use client";
-
-import { LogIn } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import UserNav from "./UserNav";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 px-8 lg:px-24 py-6 font-nunito flex items-center justify-around bg-white">
-      <Link href="/" className={`font-black text-xl`}>
-        track.this
-      </Link>
-
-      <div className="flex items-center gap-2 ml-auto">
-        <Button
-          size="sm"
-          className="cursor-pointer mr-2"
-          // onClick={() => signIn()}
+    <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link
+          href="/"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          <LogIn size="16" />
-          Sign in
-        </Button>
+          <span className="text-xl font-black">track.this</span>
+        </Link>
+        <UserNav />
       </div>
     </header>
   );
