@@ -1,3 +1,9 @@
+export enum VideoRequestStatus {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
+
 export type SessionUser = {
   user_id: string;
   user_email: string;
@@ -21,7 +27,7 @@ export type User = {
 export type VideoRequestResponse = {
   data: {
     id: string;
-    status: string;
+    status: VideoRequestStatus;
     link: string;
     youtube_id: string;
     user: User;
