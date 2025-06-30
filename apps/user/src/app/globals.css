@@ -4,6 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-almond: #eee5da;
+  --color-charcoal: #1e1b18;
+  --font-nunito: var(--font-nunito);
+  --font-inter: var(--font-inter);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -43,8 +47,15 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 :root {
