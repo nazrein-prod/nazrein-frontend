@@ -4,38 +4,33 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Eye, TrendingUp, ExternalLink } from "lucide-react";
+import { Eye, ExternalLink } from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
-import { redirect } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getTrackedVideos } from "@/lib/video";
 
 export function TrackedVideos() {
   const { user } = useAuth();
-  if (!user) {
-    redirect("/");
-  }
 
   const { data: trackedVideos } = useQuery({
-    queryFn: () => getTrackedVideos(user.user_id),
-    queryKey: ["video", "tracked", user.user_id],
+    queryFn: () => getTrackedVideos(user?.user_id),
+    queryKey: ["tracked"],
     staleTime: Infinity,
   });
 
-  function formatNumber(num: number) {
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1) + "k";
-    }
-    return num.toString();
-  }
+  // function formatNumber(num: number) {
+  //   if (num >= 1000) {
+  //     return (num / 1000).toFixed(1) + "k";
+  //   }
+  //   return num.toString();
+  // }
 
-  function formatDate(dateString: string) {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  }
+  // function formatDate(dateString: string) {
+  //   return new Date(dateString).toLocaleDateString("en-US", {
+  //     month: "short",
+  //     day: "numeric",
+  //   });
+  // }
 
   return (
     <Card className="h-fit">
@@ -53,7 +48,9 @@ export function TrackedVideos() {
         </div>
       </CardHeader>
       <CardContent>
-        {!trackedVideos || trackedVideos.data.length === 0 ? (
+        {!trackedVideos ||
+        !trackedVideos.data ||
+        trackedVideos.data.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-8">
             No tracked videos yet.
           </p>

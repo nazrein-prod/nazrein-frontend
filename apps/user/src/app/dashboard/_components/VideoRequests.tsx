@@ -4,28 +4,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, CheckCircle, XCircle, Clock } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchVideoRequests } from "@/lib/videoRequest";
-import { useAuth } from "@/providers/auth-provider";
-import { redirect } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteVideoRequest, fetchVideoRequests } from "@/lib/videoRequest";
 import { VideoRequestStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export function VideoRequests() {
-  const { user } = useAuth();
-  if (!user) {
-    redirect("/");
-  }
-
+  const queryClient = useQueryClient();
   const { data: requests } = useQuery({
     queryFn: fetchVideoRequests,
-    queryKey: ["requests", user.user_id],
-    staleTime: Infinity,
+    queryKey: ["requests"],
   });
 
-  // const handleDeleteRequest = (id: string) => {
-  //   setRequests(requests.filter((req) => req.id !== id));
-  // };
+  const { mutate } = useMutation({
+    mutationFn: async (id: string) => {
+      return await deleteVideoRequest(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["metrics"] });
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    },
+    onError: (error) => {
+      console.error("Failed to submit video:", error);
+    },
+  });
 
   function getStatusIcon(status: VideoRequestStatus) {
     switch (status) {
@@ -77,12 +79,11 @@ export function VideoRequests() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Requests list */}
         <div className="space-y-3">
           <h4 className="text-sm font-medium text-muted-foreground">
             Recent Requests (Last 30 days)
           </h4>
-          {!requests || requests.data.length === 0 ? (
+          {!requests || !requests.data || requests.data.length === 0 ? (
             <p className="text-sm text-muted-foreground text-center py-8">
               No video requests yet.
             </p>
@@ -98,9 +99,6 @@ export function VideoRequests() {
                       <h5 className="font-medium text-sm line-clamp-1">
                         {request.youtube_id}
                       </h5>
-                      {/* <p className="text-xs text-muted-foreground">
-                        {request.channelTitle}
-                      </p> */}
                       <p className="text-xs text-muted-foreground mt-1">
                         Requested: {formatDate(request.created_at)}
                       </p>
@@ -125,8 +123,8 @@ export function VideoRequests() {
                         <Button
                           size="sm"
                           variant="ghost"
-                          // onClick={() => handleDeleteRequest(request.id)}
-                          className="h-8 w-8 p-0"
+                          onClick={() => mutate(request.id)}
+                          className="h-8 w-8 p-0 cursor-pointer"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

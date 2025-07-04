@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -14,17 +13,37 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import getVideoId from "get-video-id";
-import { submitVideoRequest } from "@/actions/videoRequest";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { submitVideoRequest } from "@/lib/videoRequest";
+import { toast } from "sonner";
 
 const videoSchema = z.object({
   link: z.string().min(2, { message: "Cannot be empty" }).max(80),
 });
 
 export default function VideoInput() {
-  const [isPending, startTransition] = useTransition();
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: async ({
+      link,
+      youtube_id,
+    }: {
+      link: string;
+      youtube_id: string;
+    }) => {
+      return await submitVideoRequest(link, youtube_id);
+    },
+    onSuccess: async () => {
+      form.reset();
+      toast.success("Video submitted successfully!");
+      queryClient.invalidateQueries({ queryKey: ["metrics"] });
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const form = useForm<z.infer<typeof videoSchema>>({
     resolver: zodResolver(videoSchema),
@@ -35,6 +54,7 @@ export default function VideoInput() {
 
   function onSubmit(values: z.infer<typeof videoSchema>) {
     const { id: youtube_id, service } = getVideoId(values.link);
+
     if (!service || service !== "youtube") {
       form.setError("link", {
         type: "manual",
@@ -51,13 +71,7 @@ export default function VideoInput() {
       return;
     }
 
-    startTransition(async () => {
-      setLoading(true);
-      setStatus("idle");
-      await submitVideoRequest(values.link, youtube_id);
-      setStatus("success");
-      setLoading(false);
-    });
+    mutate({ link: values.link, youtube_id });
   }
 
   return (
@@ -84,30 +98,20 @@ export default function VideoInput() {
                       <Input
                         placeholder={`Paste youtube video link...`}
                         className="p-6 rounded-full pr-24"
-                        disabled={loading}
+                        disabled={isPending}
                         {...field}
                       />
                       <Button
                         type="submit"
                         variant="outline"
-                        disabled={loading}
+                        disabled={isPending}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full shadow-none border-none cursor-pointer bg-black text-white hover:bg-black hover:text-white"
                       >
-                        {loading ? "Loading..." : "Submit"}
+                        {isPending ? "Loading..." : "Submit"}
                       </Button>
                     </div>
                   </FormControl>
                   <FormMessage className="mx-auto" />
-                  {status === "success" && (
-                    <p className="text-green-500 text-sm ml-4 mt-2">
-                      Video submitted successfully!
-                    </p>
-                  )}
-                  {status === "error" && (
-                    <p className="text-red-500 text-sm ml-4 mt-2">
-                      Failed to submit video. Try again.
-                    </p>
-                  )}
                 </FormItem>
               )}
             />
