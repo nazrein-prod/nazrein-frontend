@@ -1,5 +1,3 @@
-"use server";
-
 import { cookies } from "next/headers";
 import { SessionUser } from "./types";
 
@@ -7,7 +5,7 @@ export async function getServerSideUser(): Promise<SessionUser | null> {
   const cookieHeader = (await cookies()).toString();
 
   try {
-    const response = await fetch("http://localhost:8080/auth/me", {
+    const response = await fetch("http://localhost:8080/auth/user", {
       headers: {
         Cookie: decodeURIComponent(cookieHeader),
       },

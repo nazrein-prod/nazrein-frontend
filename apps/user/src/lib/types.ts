@@ -40,8 +40,16 @@ export type Video = {
   channel_id: string;
   user_id: string;
   is_active: boolean;
+  visits: number;
   created_at: string;
   updated_at: string;
+  is_bookmarked?: boolean;
+  bookmarked_at?: string;
+  bookmark_count?: number;
+};
+
+export type SingleVideoResponse = {
+  data: Video;
 };
 
 export type CommunityVideoResponse = {
@@ -54,4 +62,29 @@ export type CommunityVideoResponse = {
 
 export type TrackedVideoResponse = {
   data: Video[];
+};
+
+export type Metrics = {
+  bookmarked: number;
+  tracked: number;
+  pending: number;
+};
+
+export type DashboardMetricsResponse = {
+  data: Metrics;
+};
+
+export type BookmarkedVideoResponse = {
+  data: Video[];
+};
+
+export type ClickHouseVideo = {
+  snapshot_time: string;
+  title: string;
+  image_url: string;
+  link: string;
+};
+
+export type VideoAnalyticsResponse = {
+  data: ClickHouseVideo[];
 };
