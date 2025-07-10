@@ -1,10 +1,10 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Eye, EyeClosed, Sparkle, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Balancer from "react-wrap-balancer";
 
-// EAF27C;
 export default function Hero() {
   return (
     <div className="flex flex-col w-full bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -17,14 +17,21 @@ export default function Hero() {
             className="max-w-4xl mx-auto text-center"
           >
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles className="h-8 w-8 text-black" />
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                Tracks
+              <Sparkle size={16} className="text-muted-foreground" />
+              <EyeClosed size={32} className="mt-2 text-black" />
+              <h1 className="text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent font-nunito">
+                Nazars
               </h1>
+              <Eye size={32} className="mt-2 text-black" />
+              <Sparkles size={16} className="text-muted-foreground" />
             </div>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Monitor how video titles and thumbnails change over time.
-            </p>
+            <Balancer
+              ratio={0.65}
+              className="text-lg md:text-xl text-gray-600 mb-8  mx-auto"
+            >
+              Watch and monitor how youtube video titles and thumbnails change
+              over time.
+            </Balancer>
           </motion.div>
         </div>
       </section>
