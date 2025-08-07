@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { SessionUser } from "./types";
 
-export async function getServerSideUser(): Promise<SessionUser | null> {
+export async function getServerSideSession(): Promise<SessionUser | null> {
   const cookieHeader = (await cookies()).toString();
 
   try {
