@@ -1,6 +1,5 @@
 "use client";
 
-import { createVideo } from "@/actions/video";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { useTransition } from "react";
 import { parseISO, formatDistanceToNow } from "date-fns";
+import { createVideo } from "@/lib/video";
 
 export default function RequestCard({
   v,
@@ -31,7 +31,6 @@ export default function RequestCard({
   };
 }) {
   const [isPending, startTransition] = useTransition();
-  console.log(v.created_at);
 
   function handleRequestAccept(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -72,7 +71,7 @@ export default function RequestCard({
               type="submit"
               className={cn(
                 "cursor-pointer bg-green-500 text-black hover:bg-green-500",
-                isPending && "opacity-50 cursor-not-allowed animate-spin"
+                isPending && "opacity-50 cursor-not-allowed animate-spin",
               )}
               onClick={handleRequestAccept}
             >

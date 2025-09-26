@@ -1,13 +1,11 @@
-"use server";
-
 import { cookies } from "next/headers";
-import { SessionUser } from "./types";
+import { SessionAdmin } from "./types";
 
-export async function getServerSideUser(): Promise<SessionUser | null> {
+export async function getServerSideUser(): Promise<SessionAdmin | null> {
   const cookieHeader = (await cookies()).toString();
 
   try {
-    const response = await fetch("http://localhost:8080/auth/me", {
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/admin`, {
       headers: {
         Cookie: decodeURIComponent(cookieHeader),
       },

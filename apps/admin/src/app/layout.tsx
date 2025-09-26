@@ -4,6 +4,7 @@ import "./globals.css";
 import { getServerSideUser } from "@/lib/user";
 import AuthProvider from "@/providers/auth-provider";
 import { QueryProvider } from "@/providers/query-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,16 +26,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialUser = await getServerSideUser();
+  const initialAdmin = await getServerSideUser();
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <QueryProvider>
-          <AuthProvider initialUser={initialUser}>
+          <AuthProvider initialAdmin={initialAdmin}>
             <div className="flex flex-col min-h-screen bg-white">
               <main className="flex-1 flex">{children}</main>
+              <Toaster richColors position="top-center" />
             </div>
           </AuthProvider>
         </QueryProvider>

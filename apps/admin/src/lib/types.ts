@@ -4,11 +4,11 @@ export enum VideoRequestStatus {
   REJECTED = "REJECTED",
 }
 
-export type SessionUser = {
-  user_id: string;
-  user_email: string;
-  user_image: string;
-  user_name: string;
+export type SessionAdmin = {
+  admin_id: string;
+  admin_email: string;
+  admin_image: string;
+  admin_name: string;
 };
 
 export type User = {

@@ -1,15 +1,8 @@
-import { cookies } from "next/headers";
 import { VideoRequestResponse } from "./types";
 
 export async function getAllVideoRequestData(): Promise<VideoRequestResponse | null> {
-  const cookieHeader = (await cookies()).toString();
-
   try {
-    const response = await fetch("http://localhost:8080/admin/request", {
-      headers: {
-        Cookie: decodeURIComponent(cookieHeader),
-      },
-      cache: "no-store",
+    const response = await fetch(`${process.env.BACKEND_URL}/admin/request`, {
       credentials: "include",
     });
 
@@ -18,5 +11,44 @@ export async function getAllVideoRequestData(): Promise<VideoRequestResponse | n
   } catch (error) {
     console.error("Error fetching user data", error);
     return null;
+  }
+}
+
+export async function updateVideoRequest(
+  user_id: string,
+  admin_id: string,
+  request_id: string,
+  status: string,
+  reason: string,
+): Promise<{ message: string }> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/admin/request/${request_id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          user_id,
+          status,
+          processed_by: admin_id,
+          rejection_reason: reason,
+        }),
+        credentials: "include",
+      },
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error updating video request:", error);
+
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("Failed to update video request. Please try again.");
   }
 }

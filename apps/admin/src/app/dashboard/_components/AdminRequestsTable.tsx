@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { VideoRequestResponse, VideoRequestStatus } from "@/lib/types";
+import { VideoRequestStatus } from "@/lib/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import {
   Filter,
@@ -30,40 +30,117 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { RejectionModal } from "./RejectionModal";
+import { useAuth } from "@/providers/auth-provider";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createVideo } from "@/lib/video";
+import { getAllVideoRequestData, updateVideoRequest } from "@/lib/videoRequest";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
-export default function AdminRequestsTable({
-  requests,
-}: {
-  requests: VideoRequestResponse;
-}) {
+export default function AdminRequestsTable() {
+  const { admin } = useAuth();
+
+  if (!admin) {
+    redirect("/");
+  }
+
+  const queryClient = useQueryClient();
+
+  const {
+    data: requests,
+    // isPending: isRequestsPending
+  } = useQuery({
+    queryKey: ["requests"],
+    queryFn: getAllVideoRequestData,
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["create_video"],
+    mutationFn: async ({
+      request_id,
+      link,
+      youtube_id,
+      user_id,
+    }: {
+      request_id: string;
+      link: string;
+      youtube_id: string;
+      user_id: string;
+    }) => {
+      return await createVideo(user_id, link, youtube_id, request_id);
+    },
+    onSuccess: () => {
+      toast.success("Video created successfully!");
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const { mutate: updateVideoRequestMutation } = useMutation({
+    mutationKey: ["update_video_request"],
+    mutationFn: async ({
+      requestID,
+      reason,
+      userID,
+    }: {
+      requestID: string;
+      reason: string;
+      userID: string;
+    }) => {
+      return await updateVideoRequest(
+        userID,
+        admin.admin_id,
+        requestID,
+        "REJECTED",
+        reason,
+      );
+    },
+    onSuccess: () => {
+      toast.success("Video request approved successfully!");
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [rejectionModal, setRejectionModal] = useState<{
     isOpen: boolean;
-    requestId: string;
-  }>({ isOpen: false, requestId: "" });
+    requestID: string;
+    userID: string;
+  }>({ isOpen: false, requestID: "", userID: "" });
 
-  // Filter requests based on status
-  const filteredRequests = requests.data.filter((request) => {
+  const filteredRequests = requests?.data?.filter((request) => {
     const matchesStatus =
       statusFilter === "all" || request.status === statusFilter;
 
     return matchesStatus;
   });
 
-  const handleApprove = async (requestId: string) => {
-    console.log("Request ID", requestId);
-  };
+  function handleApprove(
+    requestId: string,
+    link: string,
+    youtube_id: string,
+    user_id: string,
+  ) {
+    mutate({ request_id: requestId, link, youtube_id, user_id });
+  }
 
-  const handleReject = (requestId: string) => {
-    setRejectionModal({ isOpen: true, requestId });
-  };
+  function handleReject(requestID: string, userID: string) {
+    setRejectionModal({ isOpen: true, requestID, userID });
+  }
 
-  const handleRejectWithReason = async (requestId: string, reason: string) => {
-    console.log("Request ID", requestId);
-    console.log("Reason", reason);
-
-    setRejectionModal({ isOpen: false, requestId: "" });
-  };
+  async function handleRejectWithReason(
+    requestID: string,
+    reason: string,
+    userID: string,
+  ) {
+    updateVideoRequestMutation({ requestID, reason, userID });
+    setRejectionModal({ isOpen: false, requestID: "", userID: "" });
+  }
 
   function getStatusBadge(status: VideoRequestStatus) {
     switch (status) {
@@ -120,16 +197,6 @@ export default function AdminRequestsTable({
           </CardTitle>
 
           <div className="flex flex-col sm:flex-row gap-2">
-            {/* <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search requests..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-full sm:w-64"
-              />
-            </div> */}
-
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full sm:w-40">
                 <SelectValue placeholder="Filter by status" />
@@ -158,7 +225,7 @@ export default function AdminRequestsTable({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredRequests.length === 0 ? (
+              {filteredRequests && filteredRequests.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={5}
@@ -168,6 +235,7 @@ export default function AdminRequestsTable({
                   </TableCell>
                 </TableRow>
               ) : (
+                filteredRequests &&
                 filteredRequests.map((request) => (
                   <TableRow key={request.id} className="hover:bg-muted/50">
                     <TableCell>
@@ -231,7 +299,15 @@ export default function AdminRequestsTable({
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleApprove(request.id)}
+                            onClick={() =>
+                              handleApprove(
+                                request.id,
+                                request.link,
+                                request.youtube_id,
+                                request.user.id,
+                              )
+                            }
+                            disabled={isPending}
                             className="bg-green-600 hover:bg-green-700 cursor-pointer"
                           >
                             <CheckCircle className="h-4 w-4 mr-1" />
@@ -240,7 +316,9 @@ export default function AdminRequestsTable({
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleReject(request.id)}
+                            onClick={() =>
+                              handleReject(request.id, request.user.id)
+                            }
                             className="cursor-pointer"
                           >
                             <XCircle className="h-4 w-4 mr-1" />
@@ -265,9 +343,15 @@ export default function AdminRequestsTable({
 
       <RejectionModal
         isOpen={rejectionModal.isOpen}
-        onClose={() => setRejectionModal({ isOpen: false, requestId: "" })}
+        onClose={() =>
+          setRejectionModal({ isOpen: false, requestID: "", userID: "" })
+        }
         onReject={(reason) =>
-          handleRejectWithReason(rejectionModal.requestId, reason)
+          handleRejectWithReason(
+            rejectionModal.requestID,
+            reason,
+            rejectionModal.userID,
+          )
         }
       />
     </Card>

@@ -1,11 +1,11 @@
 "use client";
 
-import { SessionUser } from "@/lib/types";
+import { SessionAdmin } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 
 interface AuthContextType {
-  user: SessionUser | null;
+  admin: SessionAdmin | null;
   isLoading: boolean;
   isError: boolean;
   isPending: boolean;
@@ -13,28 +13,26 @@ interface AuthContextType {
 }
 
 type UserProviderProps = {
-  initialUser: SessionUser | null;
+  initialAdmin: SessionAdmin | null;
   children: React.ReactNode;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({
-  initialUser = null,
+  initialAdmin = null,
   children,
 }: UserProviderProps) {
-  // const queryClient = useQueryClient();
-
   const {
-    data: user,
+    data: admin,
     isLoading,
     isError,
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["auth", "user"],
+    queryKey: ["auth", "admin"],
     queryFn: fetchUser,
-    initialData: initialUser,
+    initialData: initialAdmin,
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: (failureCount, error: { status: number }) => {
       // Don't retry on 401 (unauthorized)
@@ -44,7 +42,7 @@ export default function AuthProvider({
   });
 
   const value: AuthContextType = {
-    user: user || null,
+    admin: admin || null,
     isLoading,
     isError,
     isPending,
@@ -62,8 +60,8 @@ export function useAuth() {
   return context;
 }
 
-export async function fetchUser(): Promise<SessionUser | null> {
-  const response = await fetch("http://localhost:8080/auth/me", {
+export async function fetchUser(): Promise<SessionAdmin | null> {
+  const response = await fetch(`${process.env.BACKEND_URL}/auth/admin`, {
     credentials: "include",
   });
 
@@ -71,7 +69,7 @@ export async function fetchUser(): Promise<SessionUser | null> {
     if (response.status === 401) {
       return null;
     }
-    throw new Error("Failed to fetch user");
+    throw new Error("Failed to fetch admin");
   }
 
   return response.json();

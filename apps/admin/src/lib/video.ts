@@ -1,17 +1,11 @@
-"use server";
-
-import { cookies } from "next/headers";
-
 export async function createVideo(
   user_id: string,
   link: string,
   youtube_id: string,
-  request_id: string
+  request_id: string,
 ) {
-  const cookieHeader = (await cookies()).toString();
-
   try {
-    const response = await fetch("http://localhost:8080/admin/request", {
+    const response = await fetch(`${process.env.BACKEND_URL}/admin/request`, {
       method: "POST",
       body: JSON.stringify({
         user_id,
@@ -19,17 +13,21 @@ export async function createVideo(
         youtube_id,
         request_id,
       }),
-      headers: {
-        Cookie: decodeURIComponent(cookieHeader),
-      },
-      cache: "no-store",
       credentials: "include",
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
     return response.json();
   } catch (error) {
     console.error("Error fetching user data", error);
-    return null;
+
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("Failed to create video. Please try again.");
   }
 }

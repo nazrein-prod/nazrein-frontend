@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+
 import { LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +14,7 @@ export default function Home() {
         size="sm"
         className="cursor-pointer"
         onClick={() => {
-          router.push("http://localhost:8080/auth/google/login");
+          router.push(`${process.env.BACKEND_URL}/auth/admin/google/login`);
         }}
       >
         <LogIn size="16" />
