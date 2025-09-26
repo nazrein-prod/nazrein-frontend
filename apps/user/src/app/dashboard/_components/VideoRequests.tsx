@@ -3,11 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Trash2, CheckCircle, XCircle, Clock, Dot } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteVideoRequest, fetchVideoRequests } from "@/lib/videoRequest";
 import { VideoRequestStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { formatDistanceToNow, parseISO } from "date-fns";
+import { toast } from "sonner";
 
 export function VideoRequests() {
   const queryClient = useQueryClient();
@@ -25,7 +27,8 @@ export function VideoRequests() {
       queryClient.invalidateQueries({ queryKey: ["requests"] });
     },
     onError: (error) => {
-      console.error("Failed to submit video:", error);
+      console.error("Failed to delete video request:", error);
+      toast.error("Something went wrong. Please try again.");
     },
   });
 
@@ -72,7 +75,7 @@ export function VideoRequests() {
   };
 
   return (
-    <Card>
+    <Card className="shadow-none border-none text-secondary bg-primary">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           Video Requests
@@ -88,12 +91,9 @@ export function VideoRequests() {
               No video requests yet.
             </p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-3 overflow-auto max-h-[700px]">
               {requests.data.map((request) => (
-                <div
-                  key={request.id}
-                  className="border rounded-lg p-4 space-y-3"
-                >
+                <div key={request.id} className="rounded-lg p-4 space-y-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1 min-w-0">
                       <h5 className="font-medium text-sm line-clamp-1">
@@ -103,8 +103,12 @@ export function VideoRequests() {
                         Requested: {formatDate(request.created_at)}
                       </p>
                       {request.processed_at && (
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-muted-foreground flex">
                           Responded: {formatDate(request.processed_at)}
+                          <Dot size={16} />
+                          {formatDistanceToNow(parseISO(request.processed_at), {
+                            addSuffix: true,
+                          })}
                         </p>
                       )}
                     </div>
@@ -113,7 +117,7 @@ export function VideoRequests() {
                         variant={getStatusVariant(request.status)}
                         className={cn(
                           "flex items-center gap-1",
-                          getStatusColor(request.status)
+                          getStatusColor(request.status),
                         )}
                       >
                         {getStatusIcon(request.status)}
@@ -132,7 +136,7 @@ export function VideoRequests() {
                     </div>
                   </div>
                   {request.rejection_reason && (
-                    <div className="bg-muted p-2 rounded text-xs">
+                    <div className=" p-2 rounded text-xs">
                       <span className="font-medium">Reason:</span>{" "}
                       {request.rejection_reason}
                     </div>

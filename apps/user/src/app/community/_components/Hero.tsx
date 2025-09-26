@@ -76,7 +76,7 @@ export default function Hero() {
       router.replace(`${pathname}?sortBy=${sortBy}&type=${searchTopic}`);
     } else {
       router.replace(
-        `${pathname}?${params.toString()}&sortBy=${sortBy}&type=${searchTopic}`
+        `${pathname}?${params.toString()}&sortBy=${sortBy}&type=${searchTopic}`,
       );
     }
 
@@ -163,7 +163,7 @@ export default function Hero() {
                               value={topic.value}
                               onSelect={(currentValue) => {
                                 setSearchTopic(
-                                  currentValue as "Video" | "Channel"
+                                  currentValue as "Video" | "Channel",
                                 );
                                 setOpenTopicMenu(false);
                               }}
@@ -175,7 +175,7 @@ export default function Hero() {
                                   "ml-auto",
                                   searchTopic === topic.value
                                     ? "opacity-100"
-                                    : "opacity-0"
+                                    : "opacity-0",
                                 )}
                               />
                             </CommandItem>
@@ -199,7 +199,7 @@ export default function Hero() {
                   "gap-2 rounded-full cursor-pointer",
                   sortBy === "popular"
                     ? "bg-secondary text-primary hover:bg-secondary hover:text-primary border"
-                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary"
+                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary",
                 )}
                 size="sm"
               >
@@ -212,7 +212,7 @@ export default function Hero() {
                   "gap-2 rounded-full cursor-pointer",
                   sortBy === "recent"
                     ? "bg-secondary text-primary hover:bg-secondary hover:text-primary border"
-                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary"
+                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary",
                 )}
                 size="sm"
               >

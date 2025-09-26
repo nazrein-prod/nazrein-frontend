@@ -1,47 +1,18 @@
-import { Badge } from "@/components/ui/badge";
+import { getVideoAnalytics } from "@/actions/video";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, ImageIcon, Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format, parseISO } from "date-fns";
+import { Calendar, CircleDot } from "lucide-react";
 import Image from "next/image";
 
-interface TimelineItem {
-  date: string;
-  type: string;
-  previousValue: string;
-  currentValue: string;
-  reason: string;
-}
-
-interface VideoTimelineProps {
-  history: TimelineItem[];
-}
-
-export function VideoTimeline({ history }: VideoTimelineProps) {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const getTypeIcon = (type: string) => {
-    return type === "title" ? (
-      <FileText className="h-4 w-4" />
-    ) : (
-      <ImageIcon className="h-4 w-4" />
-    );
-  };
-
-  const getTypeColor = (type: string) => {
-    return type === "title" ? "bg-blue-500" : "bg-green-500";
-  };
+export async function VideoTimeline({ videoID }: { videoID: string }) {
+  // await wait(2000);
+  const videoTimeline = await getVideoAnalytics(videoID);
 
   return (
-    <Card className="h-fit">
+    <Card className="bg-primary">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-secondary">
           <Calendar className="h-5 w-5" />
           Change History
         </CardTitle>
@@ -49,113 +20,54 @@ export function VideoTimeline({ history }: VideoTimelineProps) {
           Track of title and thumbnail modifications over time
         </p>
       </CardHeader>
-      <CardContent>
-        <div className="relative py-4">
-          {/* Central gradient line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 via-primary/30 to-primary/50 transform -translate-x-1/2" />
-
-          <div className="space-y-8">
-            {history.map((item, index) => {
-              const isLeft = index % 2 === 0;
-
+      <CardContent className="max-h-[800px] overflow-y-auto">
+        <ul className="timeline timeline-vertical">
+          {!videoTimeline || !videoTimeline.data ? (
+            <h1>No tracking history available</h1>
+          ) : (
+            videoTimeline.data.map((video, index) => {
               return (
-                <div key={index} className="relative">
-                  {/* Timeline dot */}
-                  <div
-                    className={`absolute left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full ${getTypeColor(item.type)} flex items-center justify-center text-white z-10 border-4 border-background`}
+                <li key={index}>
+                  {index != 0 && <hr />}
+                  <Card
+                    className={cn(
+                      "timeline-box p-0 shadow-none border-none w-full bg-primary text-background",
+                      index & 1 ? "timeline-start " : "timeline-end",
+                    )}
                   >
-                    {getTypeIcon(item.type)}
+                    <div className="flex flex-col gap-2">
+                      <div className="relative aspect-video rounded-md overflow-hidden mx-4">
+                        <Image
+                          src={video.image_url || "/placeholder.svg"}
+                          alt={video.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 mx-4">
+                        <h4 className="font-medium text-xs line-clamp-2">
+                          {video.title}
+                        </h4>
+                      </div>
+                    </div>
+                  </Card>
+                  <div className="timeline-middle">
+                    <CircleDot className="text-secondary" />
                   </div>
-
-                  {/* Event card */}
-                  <div
-                    className={`flex ${isLeft ? "justify-start pr-8" : "justify-end pl-8"}`}
+                  <p
+                    className={cn(
+                      "text-xs text-muted-foreground mx-4",
+                      index & 1 ? "timeline-end" : "timeline-start",
+                    )}
                   >
-                    <Card
-                      className={`w-full max-w-sm ${isLeft ? "mr-4" : "ml-4"}`}
-                    >
-                      <CardContent className="p-4">
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <Badge
-                              variant={
-                                item.type === "title" ? "default" : "secondary"
-                              }
-                            >
-                              {item.type === "title"
-                                ? "Title Change"
-                                : "Thumbnail Change"}
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">
-                              {formatDate(item.date)}
-                            </span>
-                          </div>
-
-                          {item.type === "title" ? (
-                            <div className="space-y-2">
-                              <div>
-                                <p className="text-xs font-medium text-muted-foreground mb-1">
-                                  Previous:
-                                </p>
-                                <p className="text-sm bg-muted p-2 rounded text-muted-foreground line-through">
-                                  {item.previousValue}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-xs font-medium text-muted-foreground mb-1">
-                                  Current:
-                                </p>
-                                <p className="text-sm bg-green-50 dark:bg-green-950 p-2 rounded border border-green-200 dark:border-green-800">
-                                  {item.currentValue}
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="space-y-2">
-                              <div>
-                                <p className="text-xs font-medium text-muted-foreground mb-1">
-                                  Previous:
-                                </p>
-                                <div className="relative w-full h-16 bg-muted rounded overflow-hidden">
-                                  <Image
-                                    src="/placeholder.svg?height=64&width=112"
-                                    alt="Previous thumbnail"
-                                    fill
-                                    className="object-cover opacity-50"
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <p className="text-xs font-medium text-muted-foreground mb-1">
-                                  Current:
-                                </p>
-                                <div className="relative w-full h-16 bg-green-50 dark:bg-green-950 rounded overflow-hidden border border-green-200 dark:border-green-800">
-                                  <Image
-                                    src="/placeholder.svg?height=64&width=112"
-                                    alt="Current thumbnail"
-                                    fill
-                                    className="object-cover"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="bg-muted/50 p-2 rounded">
-                            <p className="text-xs text-muted-foreground">
-                              <span className="font-medium">Reason:</span>{" "}
-                              {item.reason}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
+                    {format(parseISO(video.snapshot_time), "MMMM yyy")}
+                  </p>
+                  {index != videoTimeline.data.length - 1 && <hr />}
+                </li>
               );
-            })}
-          </div>
-        </div>
+            })
+          )}
+        </ul>
       </CardContent>
     </Card>
   );

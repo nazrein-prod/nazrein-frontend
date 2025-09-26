@@ -5,7 +5,7 @@ export async function getServerSideSession(): Promise<SessionUser | null> {
   const cookieHeader = (await cookies()).toString();
 
   try {
-    const response = await fetch("http://localhost:8080/auth/user", {
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/user`, {
       headers: {
         Cookie: decodeURIComponent(cookieHeader),
       },

@@ -1,14 +1,14 @@
 import { DashboardMetricsResponse } from "./types";
 
 export async function getDashboardMetrics(
-  user_id: string
+  user_id: string,
 ): Promise<DashboardMetricsResponse | undefined> {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/dashboard/metrics/${user_id}`,
+      `${process.env.BACKEND_URL}/api/dashboard/metrics/${user_id}`,
       {
         credentials: "include",
-      }
+      },
     );
 
     if (!response.ok) return undefined;

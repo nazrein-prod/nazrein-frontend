@@ -1,13 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "daisyui";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-almond: #eee5da;
   --color-charcoal: #1e1b18;
+  --color-gold: #ffc300;
   --font-nunito: var(--font-nunito);
   --font-inter: var(--font-inter);
+  --font-urbanist: var(--font-urbanist);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -134,4 +137,14 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.group-hover\:custom-hover-bg:hover {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      rgba(226, 232, 240, 0.15),
+      transparent 70%
+    ),
+    #1a1a1a;
 }

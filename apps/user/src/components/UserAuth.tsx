@@ -33,7 +33,7 @@ export default function UserAuth() {
   if (!session) {
     return (
       <Link
-        href="http://localhost:8080/auth/google/login"
+        href={`${process.env.BACKEND_URL}/auth/google/login`}
         className="flex items-center space-x-2"
       >
         <Button
@@ -84,7 +84,7 @@ export default function UserAuth() {
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link
-              href={"http://localhost:8080/auth/google/logout"}
+              href={`${process.env.BACKEND_URL}/auth/google/logout`}
               className="cursor-pointer"
             >
               <LogOut />

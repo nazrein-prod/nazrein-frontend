@@ -41,7 +41,8 @@ export default function VideoInput() {
       queryClient.invalidateQueries({ queryKey: ["requests"] });
     },
     onError: (error) => {
-      toast.error(error.message);
+      console.error("Failed to submit video:", error);
+      toast.error("Something went wrong. Please try again.");
     },
   });
 
@@ -75,10 +76,10 @@ export default function VideoInput() {
   }
 
   return (
-    <Card className="shadow-none border-none">
+    <Card className="shadow-none border-none bg-primary text-secondary">
       <CardHeader className="text-center">
-        <CardTitle className="flex items-center justify-center gap-2 text-4xl  font-bold">
-          Dashboard
+        <CardTitle className="flex items-center justify-center gap-2 text-4xl font-bold">
+          Submit Videos
         </CardTitle>
         <p className="text-muted-foreground">
           Submit a YouTube video URL to start tracking its title and thumbnail

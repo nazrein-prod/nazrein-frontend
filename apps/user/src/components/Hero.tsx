@@ -2,43 +2,61 @@
 
 import { Eye, EyeClosed, Sparkle, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col w-full bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="flex flex-col w-full">
       <section className="flex-1 relative">
         <div className="container mx-auto px-4 py-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            transition={{
+              type: "spring",
+              duration: 1,
+              bounce: 0,
+            }}
             className="max-w-4xl mx-auto text-center"
           >
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkle size={16} className="text-muted-foreground" />
-              <EyeClosed size={32} className="mt-2 text-black" />
-              <h1 className="text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent font-nunito">
-                Nazars
-              </h1>
-              <Eye size={32} className="mt-2 text-black" />
-              <Sparkles size={16} className="text-muted-foreground" />
+              <Sparkle size={16} />
+              <EyeClosed size={32} className="mt-2" />
+              <h1 className="text-6xl font-bold font-urbanist">Nazars</h1>
+              <Eye size={32} className="mt-2" />
+              <Sparkles size={16} />
             </div>
             <Balancer
               ratio={0.65}
-              className="text-lg md:text-xl text-gray-600 mb-8  mx-auto"
+              className="text-lg md:text-xl  mb-8  mx-auto"
             >
-              Watch and monitor how youtube video titles and thumbnails change
+              <motion.p
+                initial={{ opacity: 0, y: 40, scale: 0.8 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  duration: 1.2,
+                  bounce: 0,
+                }}
+              >
+                Watch and monitor how youtube video titles and thumbnails change
+              </motion.p>
               over time.
             </Balancer>
           </motion.div>
         </div>
       </section>
 
-      <section className="relative py-20 overflow-hidden">
+      {/* <section className="relative py-20 overflow-hidden">
         <div className="relative flex items-center justify-center">
-          {/* Central Person - Main floating element */}
           <motion.div
             className="relative"
             animate={{
@@ -60,7 +78,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 1 - Top Left */}
           <motion.div
             className="absolute top-8 left-8"
             animate={{
@@ -83,7 +100,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 2 - Top Right */}
           <motion.div
             className="absolute top-2 right-12"
             animate={{
@@ -106,7 +122,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 3 - Middle Left */}
           <motion.div
             className="absolute right-30 top-30 "
             animate={{
@@ -129,7 +144,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 4 - Middle Right */}
           <motion.div
             className="absolute right-8 top-50"
             animate={{
@@ -152,7 +166,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 5 - Bottom Left */}
           <motion.div
             className="absolute bottom-8 left-16"
             animate={{
@@ -175,7 +188,6 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating Element 6 - Bottom Right */}
           <motion.div
             className="absolute bottom-12 right-40"
             animate={{
@@ -198,10 +210,9 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Subtle background glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-transparent to-purple-50/30 rounded-full blur-3xl -z-10" />
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

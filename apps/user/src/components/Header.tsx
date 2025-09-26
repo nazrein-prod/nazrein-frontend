@@ -6,33 +6,39 @@ import UserNav from "./UserNav";
 import { ArrowRight, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { useAuth } from "@/providers/auth-provider";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
+import { useQuery } from "@tanstack/react-query";
+import { getClientSideSession } from "@/lib/user-client";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
+  const { data: session } = useQuery({
+    queryKey: ["session"],
+    queryFn: getClientSideSession,
+  });
 
   return (
-    <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full bg-primary">
+      <div className="container mx-auto pl-8 pr-4 md:px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-black font-nunito">nazrein</span>
+          <span className="text-xl font-black">nazrein</span>
         </Link>
         <div className="hidden md:block">
           <UserNav />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 md:gap-4">
           <UserAuth />
-          <div className="md:hidden">
+
+          <motion.div className="md:hidden" whileHover={{ scale: 1.05 }}>
             <Button
               size={"sm"}
-              className="cursor-pointer "
+              className="cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               <Menu className="text-white" />
             </Button>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -41,26 +47,27 @@ export default function Header() {
           style={{ top: "70px", height: "calc(100dvh - 72px)" }}
           className={cn(
             "fixed inset-0 h-dvh flex-1 flex-col overflow-y-auto p-4 bg-neutral-900",
-            isOpen ? "pointer-events-auto" : "pointer-events-none"
+            isOpen ? "pointer-events-auto" : "pointer-events-none",
+            "md:hidden",
           )}
         >
-          <nav className="w-full flex flex-col gap-4 font-medium text-white px-8 py-4">
-            {user && (
+          <nav className="w-full flex flex-col gap-4 font-medium text-secondary px-8 py-4">
+            {session && (
               <Link
                 href="/dashboard"
-                className="flex text-white items-center p-4 justify-between cursor-pointer hover:bg-neutral-400"
+                className="flex text-secondary items-center p-4 justify-between cursor-pointer hover:bg-secondary hover:text-primary"
                 onClick={() => setIsOpen(false)}
               >
-                <span className=" font-nunito">Dashboard</span>
+                <span>Dashboard</span>
                 <ArrowRight size={16} />
               </Link>
             )}
             <Link
               href="/community"
-              className="flex text-white items-center p-4 justify-between cursor-pointer hover:bg-neutral-400"
+              className="flex text-secondary items-center p-4 justify-between cursor-pointer hover:bg-secondary hover:text-primary"
               onClick={() => setIsOpen(false)}
             >
-              <span className="font-nunito">Community</span>
+              <span>Community</span>
               <ArrowRight size={16} />
             </Link>
           </nav>

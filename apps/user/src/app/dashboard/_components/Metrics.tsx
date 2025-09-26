@@ -2,26 +2,36 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDashboardMetrics } from "@/lib/dashboard";
-import { useAuth } from "@/providers/auth-provider";
+import { getClientSideSession } from "@/lib/user-client";
+
 import { useQuery } from "@tanstack/react-query";
 import { Bookmark, Eye, Clock, Loader2 } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default function Metrics() {
-  const { user } = useAuth();
+  const { data: session } = useQuery({
+    queryKey: ["session"],
+    queryFn: getClientSideSession,
+  });
 
-  if (!user) {
+  if (!session) {
     redirect("/");
   }
 
   const { data: metrics, isPending } = useQuery({
     queryKey: ["metrics"],
-    queryFn: () => getDashboardMetrics(user.user_id),
+    queryFn: () => getDashboardMetrics(session.user_id),
   });
 
   return (
     <>
-      <Card>
+      <Card
+        className="shadow-none border-none text-secondary"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(226, 232, 240, 0.15), transparent 70%), #1a1a1a",
+        }}
+      >
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-sm font-medium">
             Bookmarked Videos
@@ -43,7 +53,13 @@ export default function Metrics() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card
+        className="shadow-none border-none text-secondary"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(226, 232, 240, 0.15), transparent 70%), #1a1a1a",
+        }}
+      >
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-sm font-medium">Tracked Videos</CardTitle>
           <Eye className="h-4 w-4 text-muted-foreground" />
@@ -63,7 +79,13 @@ export default function Metrics() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card
+        className="shadow-none border-none text-secondary"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(226, 232, 240, 0.15), transparent 70%), #1a1a1a",
+        }}
+      >
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-sm font-medium">
             Pending Requests

@@ -3,5 +3,5 @@ export default function CommunityPageLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="w-full">{children}</div>;
+  return <div className="flex flex-col flex-1 w-full">{children}</div>;
 }

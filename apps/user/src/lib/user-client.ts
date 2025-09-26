@@ -2,7 +2,7 @@ import { SessionUser } from "./types";
 
 export async function getClientSideSession(): Promise<SessionUser | null> {
   try {
-    const response = await fetch("http://localhost:8080/auth/user", {
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/user`, {
       credentials: "include",
     });
 

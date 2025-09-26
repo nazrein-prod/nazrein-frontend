@@ -72,7 +72,7 @@ export default function Filterbar() {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === f.value ? "opacity-100" : "opacity-0"
+                      value === f.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </CommandItem>

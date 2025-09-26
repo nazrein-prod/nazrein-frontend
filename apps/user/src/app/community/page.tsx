@@ -6,7 +6,7 @@ export default function CommunityPage() {
     <div className="min-h-screen relative">
       <Hero />
 
-      <section className="py-8 relative bg-white">
+      <section className="py-8 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <VideoGrid />

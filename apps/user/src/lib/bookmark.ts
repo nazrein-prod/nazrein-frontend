@@ -1,11 +1,11 @@
 export async function addBookmark(videoID: string) {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/bookmark/${videoID}`,
+      `${process.env.BACKEND_URL}}/api/bookmark/${videoID}`,
       {
         method: "POST",
         credentials: "include",
-      }
+      },
     );
 
     if (!response.ok) {
@@ -28,11 +28,11 @@ export async function addBookmark(videoID: string) {
 export async function deleteBookmark(videoID: string) {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/bookmark/${videoID}`,
+      `${process.env.BACKEND_URL}}/api/bookmark/${videoID}`,
       {
         method: "DELETE",
         credentials: "include",
-      }
+      },
     );
 
     if (!response.ok) {

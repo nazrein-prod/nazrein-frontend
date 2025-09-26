@@ -2,7 +2,7 @@ import { VideoRequestResponse } from "./types";
 
 export async function fetchVideoRequests(): Promise<VideoRequestResponse | null> {
   try {
-    const response = await fetch("http://localhost:8080/api/request", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/request`, {
       credentials: "include",
     });
 
@@ -16,10 +16,10 @@ export async function fetchVideoRequests(): Promise<VideoRequestResponse | null>
 
 export async function submitVideoRequest(
   link: string,
-  youtube_id: string
+  youtube_id: string,
 ): Promise<{ message: string }> {
   try {
-    const response = await fetch("http://localhost:8080/api/request", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/request`, {
       method: "POST",
       body: JSON.stringify({
         link,
@@ -46,13 +46,16 @@ export async function submitVideoRequest(
 }
 
 export async function deleteVideoRequest(
-  id: string
+  id: string,
 ): Promise<{ message: string }> {
   try {
-    const response = await fetch(`http://localhost:8080/api/request/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/request/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
 
     if (!response.ok) {
       const errorData = await response.json();

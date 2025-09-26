@@ -5,14 +5,14 @@ import {
 } from "./types";
 
 export async function getTrackedVideos(
-  user_id: string
+  user_id: string,
 ): Promise<TrackedVideoResponse | null> {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/videos/user/${user_id}`,
+      `${process.env.BACKEND_URL}/api/videos/user/${user_id}`,
       {
         credentials: "include",
-      }
+      },
     );
 
     if (!response.ok) return null;
@@ -25,9 +25,12 @@ export async function getTrackedVideos(
 
 export async function getBookmarkedVideos(): Promise<BookmarkedVideoResponse | null> {
   try {
-    const response = await fetch(`http://localhost:8080/api/videos/bookmarks`, {
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/videos/bookmarks`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!response.ok) return null;
     return response.json();
@@ -42,13 +45,13 @@ export async function getCommunityVideos(
   sortBy: string | null = "popular",
   searchType: string | null = "video",
   page: number = 1,
-  limit: number = 10
+  limit: number = 10,
 ): Promise<CommunityVideoResponse | null> {
   let url = "";
   if (query) {
-    url = `http://localhost:8080/api/videos?page=${page}&limit=${limit}&q=${query}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
+    url = `${process.env.BACKEND_URL}/api/videos?page=${page}&limit=${limit}&q=${query}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
   } else {
-    url = `http://localhost:8080/api/videos?page=${page}&limit=${limit}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
+    url = `${process.env.BACKEND_URL}/api/videos?page=${page}&limit=${limit}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
   }
 
   try {
@@ -71,10 +74,10 @@ export async function getCommunityVideos(
 export async function getAutocompleteVideoNames(query: string) {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/videos/autocomplete?q=${query}`,
+      `${process.env.BACKEND_URL}/api/videos/autocomplete?q=${query}`,
       {
         credentials: "include",
-      }
+      },
     );
 
     if (!response.ok) {

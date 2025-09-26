@@ -63,7 +63,7 @@ export default function Relevancebar() {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === r.value ? "opacity-100" : "opacity-0"
+                      value === r.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </CommandItem>
