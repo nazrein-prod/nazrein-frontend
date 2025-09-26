@@ -1,0 +1,164 @@
+name: nazrein CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  user-changed:
+    uses: ./.github/workflows/workspace-changed.yml
+    with:
+      workspace_name: user
+      base_ref: ${{ github.event.pull_request.base.sha }}
+
+  admin-changed:
+    uses: ./.github/workflows/workspace-changed.yml
+    with:
+      workspace_name: admin
+      base_ref: ${{ github.event.pull_request.base.sha }}
+
+  build-user-and-push-image:
+    if: needs.user-changed.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    needs: user-changed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image to dockerhub
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/user/Dockerfile.user
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/nazrein:user-latest
+            ${{ secrets.DOCKER_USERNAME }}/nazrein:user-${{ github.sha }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+          sbom: true
+
+  build-admin-and-push-image:
+    if: needs.admin-changed.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    needs: admin-changed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image to dockerhub
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/admin/Dockerfile.admin
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/nazrein:admin-latest
+            ${{ secrets.DOCKER_USERNAME }}/nazrein:admin-${{ github.sha }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+          sbom: true
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   permissions:
+  #     packages: write
+  #   needs:
+  #     - setup
+  #     - build-user-and-push-image
+  #     - build-admin-and-push-image
+  #   if: |
+  #     needs.setup.outputs.user_changed == 'true' ||
+  #     needs.setup.outputs.admin_changed == 'true'
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Write env files
+  #       run: |
+  #         echo "GIT_COMMIT_HASH=${{ github.sha }}" >> ./envfile
+
+  #         cat << 'EOF' > ./user.env
+  #         ${{ secrets.USER_ENV_VARS }}
+  #         EOF
+
+  #         cat << 'EOF' > ./admin.env
+  #         ${{ secrets.ADMIN_ENV_VARS }}
+  #         EOF
+
+  #         cat << 'EOF' > ./judge0.conf
+  #         ${{ secrets.JUDGE0_ENV_VARS }}
+  #         EOF
+
+  #     - name: Copy env files and docker-stack.yml
+  #       uses: appleboy/scp-action@v1
+  #       with:
+  #         host: async0.com
+  #         username: deploy
+  #         key: ${{ secrets.DEPLOY_SSH_KEY }}
+  #         source: "user.env,admin.env,judge0.conf,docker-stack.yml"
+  #         target: /home/deploy
+
+  #     - name: Create dokcer configs
+  #       uses: appleboy/ssh-action@v1
+  #       with:
+  #         host: async0.com
+  #         username: deploy
+  #         key: ${{ secrets.DEPLOY_SSH_KEY }}
+  #         script: |
+  #           docker config rm user-config
+  #           docker config create user-config ./user.env
+
+  #           docker config rm admin-config
+  #           docker config create admin-config ./admin.env
+
+  #           docker config rm judge0-config
+  #           docker config create judge0-config ./judge0.conf
+
+  #           rm -f ./user.env ./admin.env
+
+  #     - name: Stack update
+  #       if: |
+  #         needs.setup.outputs.user_changed == 'true' || needs.setup.outputs.admin_changed == 'true'
+  #       uses: appleboy/ssh-action@v1
+  #       with:
+  #         host: async0.com
+  #         username: deploy
+  #         key: ${{ secrets.DEPLOY_SSH_KEY }}
+  #         script: |
+  #           set -e
+  #           if [ "${{ needs.setup.outputs.user_changed }}" = "true" ]; then
+  #             docker service update --image grvbrk/async0:user-${{ github.sha }} async0_user
+  #           fi
+
+  #           if [ "${{ needs.setup.outputs.admin_changed }}" = "true" ]; then
+  #             docker service update --image grvbrk/async0:admin-${{ github.sha }} async0_admin
+  #           fi
