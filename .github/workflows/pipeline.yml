@@ -14,7 +14,7 @@ jobs:
       base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
 
   admin-changed:
-    uses: ./.github/workflows/workspace-changed.yml
+    uses: ./.github/workflows/app-changed.yml
     with:
       workspace_name: admin
       base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
