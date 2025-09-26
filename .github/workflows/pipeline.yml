@@ -11,13 +11,13 @@ jobs:
     uses: ./.github/workflows/workspace-changed.yml
     with:
       workspace_name: user
-      base_ref: ${{ github.event.pull_request.base.sha }}
+      base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
 
   admin-changed:
     uses: ./.github/workflows/workspace-changed.yml
     with:
       workspace_name: admin
-      base_ref: ${{ github.event.pull_request.base.sha }}
+      base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
 
   build-user-and-push-image:
     if: needs.user-changed.outputs.changed == 'true'
