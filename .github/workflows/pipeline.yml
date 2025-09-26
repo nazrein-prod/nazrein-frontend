@@ -8,7 +8,7 @@ on:
 
 jobs:
   user-changed:
-    uses: ./.github/workflows/workspace-changed.yml
+    uses: ./.github/workflows/app-changed.yml
     with:
       workspace_name: user
       base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
