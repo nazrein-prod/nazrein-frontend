@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { getServerSideUser } from "@/lib/user";
-import AuthProvider from "@/providers/auth-provider";
 import { QueryProvider } from "@/providers/query-provider";
 import { Toaster } from "sonner";
+import { PublicEnvScript } from "next-runtime-env";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,19 +25,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialAdmin = await getServerSideUser();
   return (
     <html lang="en">
+      <head>
+        <PublicEnvScript />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <QueryProvider>
-          <AuthProvider initialAdmin={initialAdmin}>
-            <div className="flex flex-col min-h-screen bg-white">
-              <main className="flex-1 flex">{children}</main>
-              <Toaster richColors position="top-center" />
-            </div>
-          </AuthProvider>
+          {/* <AuthProvider initialAdmin={initialAdmin}> */}
+          <div className="flex flex-col min-h-screen bg-white">
+            <main className="flex-1 flex">{children}</main>
+            <Toaster richColors position="top-center" />
+          </div>
+          {/* </AuthProvider> */}
         </QueryProvider>
       </body>
     </html>

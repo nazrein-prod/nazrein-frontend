@@ -75,7 +75,7 @@ export function VideoRequests() {
   };
 
   return (
-    <Card className="shadow-none border-none text-secondary bg-primary">
+    <Card className="text-secondary bg-primary border-none shadow-none">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           Video Requests
@@ -83,27 +83,27 @@ export function VideoRequests() {
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-muted-foreground">
+          <h4 className="text-muted-foreground text-sm font-medium">
             Recent Requests (Last 30 days)
           </h4>
           {!requests || !requests.data || requests.data.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
+            <p className="text-muted-foreground py-8 text-center text-sm">
               No video requests yet.
             </p>
           ) : (
-            <div className="space-y-3 overflow-auto max-h-[700px]">
+            <div className="max-h-[700px] space-y-3 overflow-auto">
               {requests.data.map((request) => (
-                <div key={request.id} className="rounded-lg p-4 space-y-3">
+                <div key={request.id} className="space-y-3 rounded-lg p-4">
                   <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                      <h5 className="font-medium text-sm line-clamp-1">
+                    <div className="min-w-0 flex-1">
+                      <h5 className="line-clamp-1 text-sm font-medium">
                         {request.youtube_id}
                       </h5>
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-muted-foreground mt-1 text-xs">
                         Requested: {formatDate(request.created_at)}
                       </p>
                       {request.processed_at && (
-                        <p className="text-xs text-muted-foreground flex">
+                        <p className="text-muted-foreground flex text-xs">
                           Responded: {formatDate(request.processed_at)}
                           <Dot size={16} />
                           {formatDistanceToNow(parseISO(request.processed_at), {
@@ -112,7 +112,7 @@ export function VideoRequests() {
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 ml-4">
+                    <div className="ml-4 flex items-center gap-2">
                       <Badge
                         variant={getStatusVariant(request.status)}
                         className={cn(
@@ -128,7 +128,7 @@ export function VideoRequests() {
                           size="sm"
                           variant="ghost"
                           onClick={() => mutate(request.id)}
-                          className="h-8 w-8 p-0 cursor-pointer"
+                          className="h-8 w-8 cursor-pointer p-0"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -136,7 +136,7 @@ export function VideoRequests() {
                     </div>
                   </div>
                   {request.rejection_reason && (
-                    <div className=" p-2 rounded text-xs">
+                    <div className="rounded p-2 text-xs">
                       <span className="font-medium">Reason:</span>{" "}
                       {request.rejection_reason}
                     </div>

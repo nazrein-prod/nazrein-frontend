@@ -1,20 +1,25 @@
+import { env } from "next-runtime-env";
+
 export async function createVideo(
   user_id: string,
   link: string,
   youtube_id: string,
-  request_id: string,
+  request_id: string
 ) {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/admin/request`, {
-      method: "POST",
-      body: JSON.stringify({
-        user_id,
-        link,
-        youtube_id,
-        request_id,
-      }),
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/admin/request`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user_id,
+          link,
+          youtube_id,
+          request_id,
+        }),
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();

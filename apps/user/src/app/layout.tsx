@@ -5,6 +5,7 @@ import { QueryProvider } from "@/providers/query-provider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import { PublicEnvScript } from "next-runtime-env";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -34,13 +35,16 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <PublicEnvScript />
+      </head>
       <body
         className={`${nunito.variable} ${inter.style} ${urbanist.variable} antialiased`}
       >
         <QueryProvider>
-          <div className="flex flex-col min-h-screen bg-black text-white font-urbanist">
+          <div className="font-urbanist flex min-h-screen flex-col bg-black text-white">
             <Header />
-            <main className="flex-1 flex">{children}</main>
+            <main className="flex flex-1">{children}</main>
             <Toaster richColors position="top-center" />
             <Footer />
           </div>

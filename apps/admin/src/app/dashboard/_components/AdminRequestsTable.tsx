@@ -30,20 +30,22 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { RejectionModal } from "./RejectionModal";
-import { useAuth } from "@/providers/auth-provider";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createVideo } from "@/lib/video";
 import { getAllVideoRequestData, updateVideoRequest } from "@/lib/videoRequest";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { getClientSideSession } from "@/lib/user";
 
 export default function AdminRequestsTable() {
-  const { admin } = useAuth();
-
-  if (!admin) {
-    redirect("/");
-  }
-
+  const {
+    data: session,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["session"],
+    queryFn: getClientSideSession,
+    retry: false,
+  });
   const queryClient = useQueryClient();
 
   const {
@@ -91,10 +93,10 @@ export default function AdminRequestsTable() {
     }) => {
       return await updateVideoRequest(
         userID,
-        admin.admin_id,
+        session?.data.id,
         requestID,
         "REJECTED",
-        reason,
+        reason
       );
     },
     onSuccess: () => {
@@ -124,7 +126,7 @@ export default function AdminRequestsTable() {
     requestId: string,
     link: string,
     youtube_id: string,
-    user_id: string,
+    user_id: string
   ) {
     mutate({ request_id: requestId, link, youtube_id, user_id });
   }
@@ -136,7 +138,7 @@ export default function AdminRequestsTable() {
   async function handleRejectWithReason(
     requestID: string,
     reason: string,
-    userID: string,
+    userID: string
   ) {
     updateVideoRequestMutation({ requestID, reason, userID });
     setRejectionModal({ isOpen: false, requestID: "", userID: "" });
@@ -185,6 +187,14 @@ export default function AdminRequestsTable() {
       hour: "2-digit",
       minute: "2-digit",
     });
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (!session || isError) {
+    return <h1>Error</h1>;
   }
 
   return (
@@ -304,7 +314,7 @@ export default function AdminRequestsTable() {
                                 request.id,
                                 request.link,
                                 request.youtube_id,
-                                request.user.id,
+                                request.user.id
                               )
                             }
                             disabled={isPending}
@@ -350,7 +360,7 @@ export default function AdminRequestsTable() {
           handleRejectWithReason(
             rejectionModal.requestID,
             reason,
-            rejectionModal.userID,
+            rejectionModal.userID
           )
         }
       />

@@ -1,10 +1,16 @@
+import { env } from "next-runtime-env";
 import { SessionUser } from "./types";
 
-export async function getClientSideSession(): Promise<SessionUser | null> {
+export async function getClientSideSession(): Promise<{
+  data: SessionUser;
+} | null> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/auth/user`, {
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/auth/user`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!response.ok) return null;
     return await response.json();

@@ -14,9 +14,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { env } from "next-runtime-env";
 
 export default function UserAuth() {
-  const { data: session, isLoading } = useQuery({
+  const {
+    data: session,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["session"],
     queryFn: getClientSideSession,
   });
@@ -24,16 +29,16 @@ export default function UserAuth() {
   if (isLoading) {
     return (
       <div className="flex items-center space-x-2">
-        <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse" />
-        <div className="hidden md:block w-20 h-4 bg-gray-200 rounded animate-pulse" />
+        <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+        <div className="hidden h-4 w-20 animate-pulse rounded bg-gray-200 md:block" />
       </div>
     );
   }
 
-  if (!session) {
+  if (!session || isError) {
     return (
       <Link
-        href={`${process.env.BACKEND_URL}/auth/google/login`}
+        href={`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/google/login`}
         className="flex items-center space-x-2"
       >
         <Button
@@ -51,15 +56,15 @@ export default function UserAuth() {
     <div className="flex items-center space-x-3">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex items-center md:space-x-3 cursor-pointer text-secondary">
-            {session.user_image ? (
+          <div className="text-secondary flex cursor-pointer items-center md:space-x-3">
+            {session.data.image ? (
               <Avatar>
-                <AvatarImage src={session.user_image} alt={session.user_name} />
+                <AvatarImage src={session.data.image} alt={session.data.name} />
                 <AvatarFallback>NA</AvatarFallback>
               </Avatar>
             ) : (
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4 text-muted-foreground" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
+                <User className="text-muted-foreground h-4 w-4" />
               </div>
             )}
           </div>
@@ -68,15 +73,15 @@ export default function UserAuth() {
           <DropdownMenuLabel className="p-0 font-normal">
             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={session.user_image} alt={session.user_name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage src={session.data.image} alt={session.data.name} />
+                <AvatarFallback className="rounded-lg"></AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">
-                  {session.user_name}
+                  {session.data.name}
                 </span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {session.user_email}
+                  {session.data.email}
                 </span>
               </div>
             </div>
@@ -84,7 +89,7 @@ export default function UserAuth() {
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link
-              href={`${process.env.BACKEND_URL}/auth/google/logout`}
+              href={`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/google/logout`}
               className="cursor-pointer"
             >
               <LogOut />

@@ -5,10 +5,10 @@ export enum VideoRequestStatus {
 }
 
 export type SessionUser = {
-  user_id: string;
-  user_email: string;
-  user_image: string;
-  user_name: string;
+  id: string;
+  email: string;
+  image: string;
+  name: string;
 };
 
 export type VideoRequest = {

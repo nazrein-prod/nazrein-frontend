@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import { env } from "next-runtime-env";
 
 export async function submitVideoRequest(
   link: string,
@@ -18,7 +19,7 @@ export async function submitVideoRequest(
       }),
       headers: {
         Cookie: decodeURIComponent(cookieHeader),
-        Origin: process.env.ORIGIN!,
+        Origin: env("NEXT_PUBLIC_ORIGIN")!,
       },
     });
 
@@ -41,7 +42,7 @@ export async function deleteVideoRequest(
       method: "DELETE",
       headers: {
         Cookie: decodeURIComponent(cookieHeader),
-        Origin: process.env.ORIGIN!,
+        Origin: env("NEXT_PUBLIC_ORIGIN")!,
       },
     });
 

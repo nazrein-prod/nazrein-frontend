@@ -1,16 +1,17 @@
 "use server";
 
 import { SingleVideoResponse, VideoAnalyticsResponse } from "@/lib/types";
+import { env } from "next-runtime-env";
 
 export async function getVideoInfo(
   videoID: string,
 ): Promise<SingleVideoResponse | null> {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/videos/${videoID}`,
+      `${process.env.BACKEND_URL}/api/v1/public/videos/${videoID}`,
       {
         headers: {
-          Origin: process.env.ORIGIN!,
+          Origin: env("NEXT_PUBLIC_ORIGIN")!,
         },
       },
     );
@@ -28,10 +29,10 @@ export async function getVideoAnalytics(
 ): Promise<VideoAnalyticsResponse | null> {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/videos/analytics/${videoID}`,
+      `${process.env.BACKEND_URL}/api/v1/public/videos/analytics/${videoID}`,
       {
         headers: {
-          Origin: process.env.ORIGIN!,
+          Origin: env("NEXT_PUBLIC_ORIGIN")!,
         },
       },
     );

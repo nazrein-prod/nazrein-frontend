@@ -76,12 +76,12 @@ export default function VideoInput() {
   }
 
   return (
-    <Card className="shadow-none border-none bg-primary text-secondary">
+    <Card className="shadow-none border-none bg-transparent text-secondary">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2 text-4xl font-bold">
           Submit Videos
         </CardTitle>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground tracking-wide">
           Submit a YouTube video URL to start tracking its title and thumbnail
           changes over time
         </p>

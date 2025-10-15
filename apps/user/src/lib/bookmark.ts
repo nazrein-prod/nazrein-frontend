@@ -1,7 +1,9 @@
+import { env } from "next-runtime-env";
+
 export async function addBookmark(videoID: string) {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}}/api/bookmark/${videoID}`,
+      `${env("NEXT_PUBLIC_BACKEND_URL")}}/api/v1/bookmark/${videoID}`,
       {
         method: "POST",
         credentials: "include",
@@ -28,7 +30,7 @@ export async function addBookmark(videoID: string) {
 export async function deleteBookmark(videoID: string) {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}}/api/bookmark/${videoID}`,
+      `${env("NEXT_PUBLIC_BACKEND_URL")}}/api/v1/bookmark/${videoID}`,
       {
         method: "DELETE",
         credentials: "include",

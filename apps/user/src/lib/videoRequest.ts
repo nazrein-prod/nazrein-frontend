@@ -1,10 +1,14 @@
+import { env } from "next-runtime-env";
 import { VideoRequestResponse } from "./types";
 
 export async function fetchVideoRequests(): Promise<VideoRequestResponse | null> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/request`, {
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!response.ok) return null;
     return response.json();
@@ -19,14 +23,17 @@ export async function submitVideoRequest(
   youtube_id: string,
 ): Promise<{ message: string }> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/request`, {
-      method: "POST",
-      body: JSON.stringify({
-        link,
-        youtube_id,
-      }),
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          link,
+          youtube_id,
+        }),
+        credentials: "include",
+      },
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -50,7 +57,7 @@ export async function deleteVideoRequest(
 ): Promise<{ message: string }> {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/request/${id}`,
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request/${id}`,
       {
         method: "DELETE",
         credentials: "include",

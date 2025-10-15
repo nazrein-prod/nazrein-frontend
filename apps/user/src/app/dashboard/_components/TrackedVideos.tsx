@@ -8,35 +8,22 @@ import { Eye, ExternalLink, Clock } from "lucide-react";
 
 import { useQuery } from "@tanstack/react-query";
 import { getTrackedVideos } from "@/lib/video";
-import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { getClientSideSession } from "@/lib/user-client";
 
 export function TrackedVideos() {
-  const { data: session } = useQuery({
-    queryKey: ["session"],
-    queryFn: getClientSideSession,
-  });
-
-  if (!session) {
-    redirect("/");
-  }
-
   const { data: trackedVideos } = useQuery({
-    queryFn: () => getTrackedVideos(session.user_id),
+    queryFn: getTrackedVideos,
     queryKey: ["tracked"],
   });
 
-  console.log(trackedVideos);
-
   return (
     <Card
-      className="shadow-none border-none text-secondary"
-      style={{
-        background:
-          "radial-gradient(125% 125% at 50% 10%, #000000 40%, #0d1a36 100%)",
-      }}
+      className="text-secondary bg-primary border-none shadow-none"
+      // style={{
+      //   background:
+      //     "radial-gradient(125% 125% at 50% 10%, #000000 40%, #0d1a36 100%)",
+      // }}
     >
       <CardHeader>
         <div className="flex items-center justify-between">
@@ -59,15 +46,15 @@ export function TrackedVideos() {
         {!trackedVideos ||
         !trackedVideos.data ||
         trackedVideos.data.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-8">
+          <p className="text-muted-foreground py-8 text-center text-sm">
             No tracked videos yet.
           </p>
         ) : (
           <div className="space-y-4">
             {trackedVideos.data.map((video) => (
               <Link key={video.id} href={`/community/${video.id}`}>
-                <div className="flex gap-3 p-3 rounded-lg hover:bg-secondary transition-colors group">
-                  <div className="relative w-20 flex-shrink-0 rounded overflow-hidden">
+                <div className="hover:bg-secondary group flex gap-3 rounded-lg p-3 transition-colors">
+                  <div className="relative w-20 flex-shrink-0 overflow-hidden rounded">
                     <Image
                       src={video.thumbnail || "/placeholder.svg"}
                       alt="hello"
@@ -75,20 +62,20 @@ export function TrackedVideos() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex-1 min-w-0 space-y-1">
+                  <div className="min-w-0 flex-1 space-y-1">
                     <div className="flex items-start justify-between gap-2">
-                      <h4 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors">
+                      <h4 className="group-hover:text-primary line-clamp-2 text-sm font-medium transition-colors">
                         {video.title}
                       </h4>
-                      <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                      <ExternalLink className="text-muted-foreground h-4 w-4 flex-shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
-                    <p className="text-xs text-muted-foreground truncate">
+                    <p className="text-muted-foreground truncate text-xs">
                       {video.channel_title}
                     </p>
                     <div className="flex items-center gap-2">
                       <Badge
                         variant={"secondary"}
-                        className="text-xs flex items-center gap-1 group-hover:bg-primary group-hover:text-secondary"
+                        className="group-hover:bg-primary group-hover:text-secondary flex items-center gap-1 text-xs"
                       >
                         <Clock className="h-3 w-3" />
                         {formatDistanceToNow(parseISO(video.published_at), {

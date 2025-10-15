@@ -1,11 +1,12 @@
+import { env } from "next-runtime-env";
 import { DashboardMetricsResponse } from "./types";
 
-export async function getDashboardMetrics(
-  user_id: string,
-): Promise<DashboardMetricsResponse | undefined> {
+export async function getDashboardMetrics(): Promise<
+  DashboardMetricsResponse | undefined
+> {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/dashboard/metrics/${user_id}`,
+      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/dashboard/metrics`,
       {
         credentials: "include",
       },

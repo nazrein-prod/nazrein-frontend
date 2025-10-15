@@ -1,20 +1,16 @@
-import { cookies } from "next/headers";
-import { SessionAdmin } from "./types";
+import { SessionAdmin } from "@/lib/types";
+import { env } from "next-runtime-env";
 
-export async function getServerSideUser(): Promise<SessionAdmin | null> {
-  const cookieHeader = (await cookies()).toString();
+export async function getClientSideSession(): Promise<{
+  data: SessionAdmin;
+} | null> {
+  const response = await fetch(`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/admin`, {
+    credentials: "include",
+  });
 
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/auth/admin`, {
-      headers: {
-        Cookie: decodeURIComponent(cookieHeader),
-      },
-    });
-
-    if (!response.ok) return null;
-    return await response.json();
-  } catch (error) {
-    console.error("Server-side auth check failed:", error);
-    return null;
+  if (!response.ok) {
+    throw new Error("Error fetching client-side session");
   }
+
+  return await response.json();
 }

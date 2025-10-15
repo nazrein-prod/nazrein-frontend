@@ -2,8 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const privateRoutes = ["/dashboard"];
 
+const BACKEND_URL = "http://server:8080";
+const ORIGIN = "http://localhost:3000";
+
 export async function middleware(request: NextRequest) {
-  const session = request.cookies.get("session");
+  const session = request.cookies.get("nazrein_session");
   const isPrivateRoute = privateRoutes.includes(request.nextUrl.pathname);
 
   if (isPrivateRoute) {
@@ -12,10 +15,10 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      const resp = await fetch(`${process.env.BACKEND_URL}/auth/user`, {
+      const resp = await fetch(`${BACKEND_URL}/auth/user`, {
         headers: {
-          Cookie: `session=${session.value}`,
-          Origin: process.env.ORIGIN!,
+          Cookie: `nazrein_session=${session.value}`,
+          Origin: ORIGIN,
         },
       });
       if (!resp.ok) {

@@ -9,13 +9,25 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 export function BookmarkedVideos() {
-  const { data: bookmarkedVideos } = useQuery({
-    queryFn: () => getBookmarkedVideos(),
-    queryKey: ["bookmarked"],
+  const {
+    data: bookmarkedVideos,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryFn: getBookmarkedVideos,
+    queryKey: ["bookmark"],
   });
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (isError || !bookmarkedVideos) {
+    return <h1>Error</h1>;
+  }
+
   return (
-    <Card className="shadow-none border-none text-secondary bg-primary">
+    <Card className="text-secondary bg-primary border-none shadow-none">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
@@ -25,16 +37,16 @@ export function BookmarkedVideos() {
         </div>
       </CardHeader>
       <CardContent>
-        {bookmarkedVideos?.data?.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-8">
+        {bookmarkedVideos.data.length === 0 ? (
+          <p className="text-muted-foreground py-8 text-center text-sm">
             No bookmarked videos yet.
           </p>
         ) : (
           <div className="space-y-3">
-            {bookmarkedVideos?.data?.map((v) => (
+            {bookmarkedVideos.data.map((v) => (
               <Link key={v.id} href={`/community/${v.id}`}>
-                <div className="flex gap-3 p-3 rounded-lg group-hover:custom-hover-bg transition-colors group">
-                  <div className="relative w-20 h-14 flex-shrink-0 rounded overflow-hidden">
+                <div className="group-hover:custom-hover-bg group flex gap-3 rounded-lg p-3 transition-colors">
+                  <div className="relative h-14 w-20 flex-shrink-0 overflow-hidden rounded">
                     <Image
                       src={v.thumbnail || "/placeholder.svg"}
                       alt={v.title}
@@ -42,21 +54,21 @@ export function BookmarkedVideos() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-sm line-clamp-2  transition-colors">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="line-clamp-2 text-sm font-medium transition-colors">
                       {v.title}
                     </h4>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-muted-foreground mt-1 text-xs">
                       {v.channel_title}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       Saved{" "}
                       {formatDistanceToNow(parseISO(v.bookmarked_at || ""), {
                         addSuffix: true,
                       })}
                     </p>
                   </div>
-                  <ExternalLink className="h-4 w-4 text-muted-foreground transition-opacity" />
+                  <ExternalLink className="text-muted-foreground h-4 w-4 transition-opacity" />
                 </div>
               </Link>
             ))}

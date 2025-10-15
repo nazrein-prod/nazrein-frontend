@@ -1,43 +1,40 @@
+import { env } from "next-runtime-env";
 import {
   BookmarkedVideoResponse,
   CommunityVideoResponse,
   TrackedVideoResponse,
 } from "./types";
 
-export async function getTrackedVideos(
-  user_id: string,
-): Promise<TrackedVideoResponse | null> {
-  try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/api/videos/user/${user_id}`,
-      {
-        credentials: "include",
-      },
-    );
+export async function getTrackedVideos(): Promise<TrackedVideoResponse | null> {
+  const response = await fetch(
+    `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/videos`,
+    {
+      credentials: "include",
+    },
+  );
 
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching tracked videos", error);
-    return null;
-  }
+  if (!response.ok)
+    throw new Error(`Failed to fetch tracked videos: ${response.statusText}`);
+
+  const videos = await response.json();
+  return videos;
 }
 
-export async function getBookmarkedVideos(): Promise<BookmarkedVideoResponse | null> {
-  try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/api/videos/bookmarks`,
-      {
-        credentials: "include",
-      },
+export async function getBookmarkedVideos(): Promise<BookmarkedVideoResponse> {
+  const response = await fetch(
+    `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/videos/bookmarks`,
+    {
+      credentials: "include",
+    },
+  );
+
+  if (!response.ok)
+    throw new Error(
+      `Failed to fetch bookmarked videos: ${response.statusText}`,
     );
 
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching bookmarked videos", error);
-    return null;
-  }
+  const videos = (await response.json()) as BookmarkedVideoResponse;
+  return videos;
 }
 
 export async function getCommunityVideos(
@@ -49,9 +46,9 @@ export async function getCommunityVideos(
 ): Promise<CommunityVideoResponse | null> {
   let url = "";
   if (query) {
-    url = `${process.env.BACKEND_URL}/api/videos?page=${page}&limit=${limit}&q=${query}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
+    url = `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/public/videos?page=${page}&limit=${limit}&q=${query}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
   } else {
-    url = `${process.env.BACKEND_URL}/api/videos?page=${page}&limit=${limit}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
+    url = `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/public/videos?page=${page}&limit=${limit}&sortBy=${sortBy}&type=${searchType?.toLowerCase()}`;
   }
 
   try {
@@ -60,7 +57,7 @@ export async function getCommunityVideos(
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -72,22 +69,17 @@ export async function getCommunityVideos(
 }
 
 export async function getAutocompleteVideoNames(query: string) {
-  try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/api/videos/autocomplete?q=${query}`,
-      {
-        credentials: "include",
-      },
-    );
+  const response = await fetch(
+    `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/public/videos/autocomplete?q=${query}`,
+    {
+      credentials: "include",
+    },
+  );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching community videos", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.statusText}`);
   }
+
+  const data = await response.json();
+  return data;
 }
