@@ -11,9 +11,11 @@ export async function middleware(request: NextRequest) {
   const isPrivateRoute = privateRoutes.includes(request.nextUrl.pathname);
 
   // DELETE THIS
-  console.log("PATH: ", request.nextUrl.origin);
+  console.log("PATH: ", request.nextUrl.pathname);
   console.log("BACKEND_URL: ", env("NEXT_PUBLIC_BACKEND_URL"));
   console.log("ORIGIN: ", env("NEXT_PUBLIC_ORIGIN"));
+  console.log("SESSION: ", session);
+  console.log("ISPRIVATEROUTE: ", isPrivateRoute);
 
   if (isPrivateRoute) {
     if (!session) {
