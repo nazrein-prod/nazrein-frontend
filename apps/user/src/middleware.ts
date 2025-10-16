@@ -10,6 +10,11 @@ export async function middleware(request: NextRequest) {
   const session = request.cookies.get("nazrein_session");
   const isPrivateRoute = privateRoutes.includes(request.nextUrl.pathname);
 
+  // DELETE THIS
+  console.log("PATH: ", request.nextUrl.origin);
+  console.log("BACKEND_URL: ", env("NEXT_PUBLIC_BACKEND_URL"));
+  console.log("ORIGIN: ", env("NEXT_PUBLIC_ORIGIN"));
+
   if (isPrivateRoute) {
     if (!session) {
       return NextResponse.redirect(new URL("/", request.nextUrl.origin));
