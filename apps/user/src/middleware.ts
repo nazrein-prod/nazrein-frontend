@@ -29,6 +29,9 @@ export async function middleware(request: NextRequest) {
           Origin: env("NEXT_PUBLIC_ORIGIN")!,
         },
       });
+
+      console.log("resp.ok", resp.ok);
+
       if (!resp.ok) {
         console.error("resp.ok is false");
         return NextResponse.redirect(new URL("/", request.nextUrl.origin));

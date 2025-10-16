@@ -29,6 +29,8 @@ export async function middleware(request: NextRequest) {
       },
     });
 
+    console.log("resp.ok", resp.ok);
+
     if (!resp.ok) {
       return NextResponse.redirect(new URL("/", request.nextUrl.origin));
     }
