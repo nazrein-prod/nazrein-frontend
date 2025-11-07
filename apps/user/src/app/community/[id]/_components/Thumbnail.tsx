@@ -23,7 +23,7 @@ export default function Thumbnail({
           src={video?.data.thumbnail || "/placeholder.svg"}
           alt={video?.data.title ?? "Video thumbnail"}
           fill
-          className="object-cover rounded-md"
+          className="rounded-md object-cover"
           priority
         />
         ;
@@ -33,7 +33,7 @@ export default function Thumbnail({
         {isOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/70 z-40"
+              className="fixed inset-0 z-40 bg-black/70"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -42,14 +42,14 @@ export default function Thumbnail({
 
             <motion.div
               layoutId="video-thumbnail"
-              className="fixed inset-0 z-50  p-4 max-w-4xl aspect-video mx-auto my-auto"
+              className="fixed inset-0 z-50 mx-auto my-auto aspect-video max-w-4xl p-4"
               onClick={() => setIsOpen(false)}
             >
               <Image
                 src={video?.data.thumbnail || "/placeholder.svg"}
                 alt={video?.data.title ?? "Video thumbnail"}
                 fill
-                className="object-cover rounded-md"
+                className="rounded-md object-cover"
                 priority
               />
             </motion.div>

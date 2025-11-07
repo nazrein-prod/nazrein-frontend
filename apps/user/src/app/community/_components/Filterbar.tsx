@@ -48,7 +48,7 @@ export default function Filterbar() {
         <Button
           variant="outline"
           role="combobox"
-          className="shadow-none border-none font-semibold hover:bg-transparent cursor-pointer pl-2"
+          className="cursor-pointer border-none pl-2 font-semibold shadow-none hover:bg-transparent"
         >
           {value}
           <ChevronDown className="opacity-50" />

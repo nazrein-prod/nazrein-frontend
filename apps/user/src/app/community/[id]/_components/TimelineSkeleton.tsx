@@ -8,10 +8,10 @@ export default function TimelineSkeleton() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Calendar className="h-5 w-5 animate-pulse" />
-          <div className="h-4 w-24 bg-muted rounded animate-pulse" />
+          <div className="bg-muted h-4 w-24 animate-pulse rounded" />
         </CardTitle>
-        <p className="text-sm text-muted-foreground">
-          <span className="h-3 w-64 bg-muted rounded animate-pulse inline-block" />
+        <p className="text-muted-foreground text-sm">
+          <span className="bg-muted inline-block h-3 w-64 animate-pulse rounded" />
         </p>
       </CardHeader>
       <CardContent>
@@ -21,27 +21,27 @@ export default function TimelineSkeleton() {
               {index !== 0 && <hr />}
               <Card
                 className={cn(
-                  "timeline-box p-0 shadow-none border-none w-full",
-                  index & 1 ? "timeline-start " : "timeline-end",
+                  "timeline-box w-full border-none p-0 shadow-none",
+                  index & 1 ? "timeline-start" : "timeline-end",
                 )}
               >
                 <div className="flex flex-col gap-2 rounded-lg">
-                  <div className="relative aspect-video rounded-md overflow-hidden mx-4 bg-muted animate-pulse" />
-                  <div className="flex-1 mx-4">
-                    <div className="h-4 w-3/4 bg-muted rounded animate-pulse" />
+                  <div className="bg-muted relative mx-4 aspect-video animate-pulse overflow-hidden rounded-md" />
+                  <div className="mx-4 flex-1">
+                    <div className="bg-muted h-4 w-3/4 animate-pulse rounded" />
                   </div>
                 </div>
               </Card>
               <div className="timeline-middle">
-                <div className="h-4 w-4 bg-muted rounded-full animate-pulse" />
+                <div className="bg-muted h-4 w-4 animate-pulse rounded-full" />
               </div>
               <p
                 className={cn(
-                  "text-xs text-muted-foreground mx-4",
+                  "text-muted-foreground mx-4 text-xs",
                   index & 1 ? "timeline-end" : "timeline-start",
                 )}
               >
-                <span className="h-3 w-16 bg-muted rounded animate-pulse inline-block" />
+                <span className="bg-muted inline-block h-3 w-16 animate-pulse rounded" />
               </p>
               {index !== 2 && <hr />}
             </li>

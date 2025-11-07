@@ -12,11 +12,11 @@ export async function VideoTimeline({ videoID }: { videoID: string }) {
   return (
     <Card className="bg-primary">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-secondary">
+        <CardTitle className="text-secondary flex items-center gap-2">
           <Calendar className="h-5 w-5" />
           Change History
         </CardTitle>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Track of title and thumbnail modifications over time
         </p>
       </CardHeader>
@@ -31,12 +31,12 @@ export async function VideoTimeline({ videoID }: { videoID: string }) {
                   {index != 0 && <hr />}
                   <Card
                     className={cn(
-                      "timeline-box p-0 shadow-none border-none w-full bg-primary text-background",
-                      index & 1 ? "timeline-start " : "timeline-end",
+                      "timeline-box bg-primary text-background w-full border-none p-0 shadow-none",
+                      index & 1 ? "timeline-start" : "timeline-end",
                     )}
                   >
                     <div className="flex flex-col gap-2">
-                      <div className="relative aspect-video rounded-md overflow-hidden mx-4">
+                      <div className="relative mx-4 aspect-video overflow-hidden rounded-md">
                         <Image
                           src={video.image_url || "/placeholder.svg"}
                           alt={video.title}
@@ -44,8 +44,8 @@ export async function VideoTimeline({ videoID }: { videoID: string }) {
                           className="object-cover"
                         />
                       </div>
-                      <div className="flex-1 mx-4">
-                        <h4 className="font-medium text-xs line-clamp-2">
+                      <div className="mx-4 flex-1">
+                        <h4 className="line-clamp-2 text-xs font-medium">
                           {video.title}
                         </h4>
                       </div>
@@ -56,7 +56,7 @@ export async function VideoTimeline({ videoID }: { videoID: string }) {
                   </div>
                   <p
                     className={cn(
-                      "text-xs text-muted-foreground mx-4",
+                      "text-muted-foreground mx-4 text-xs",
                       index & 1 ? "timeline-end" : "timeline-start",
                     )}
                   >

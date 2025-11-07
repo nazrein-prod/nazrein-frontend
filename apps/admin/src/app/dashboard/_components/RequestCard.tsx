@@ -71,7 +71,7 @@ export default function RequestCard({
               type="submit"
               className={cn(
                 "cursor-pointer bg-green-500 text-black hover:bg-green-500",
-                isPending && "opacity-50 cursor-not-allowed animate-spin",
+                isPending && "opacity-50 cursor-not-allowed animate-spin"
               )}
               onClick={handleRequestAccept}
             >

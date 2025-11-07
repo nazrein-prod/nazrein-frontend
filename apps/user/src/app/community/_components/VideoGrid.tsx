@@ -44,7 +44,7 @@ export function VideoGrid() {
   }
 
   if (isError) {
-    return <div className="text-center py-8">Error loading videos</div>;
+    return <div className="py-8 text-center">Error loading videos</div>;
   }
 
   const allVideos =
@@ -52,11 +52,11 @@ export function VideoGrid() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {allVideos.length > 0 ? (
           allVideos.map((video) => <VideoCard key={video.id} video={video} />)
         ) : (
-          <div className="col-span-full text-center py-8">No videos found</div>
+          <div className="col-span-full py-8 text-center">No videos found</div>
         )}
       </div>
 
@@ -71,7 +71,7 @@ export function VideoGrid() {
       )}
 
       {!hasNextPage && allVideos.length > 0 && (
-        <div className="text-center py-4 text-sm text-gray-500">
+        <div className="py-4 text-center text-sm text-gray-500">
           No more videos to load
         </div>
       )}

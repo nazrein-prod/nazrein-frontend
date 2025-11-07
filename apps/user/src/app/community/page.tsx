@@ -3,12 +3,12 @@ import Hero from "./_components/Hero";
 
 export default function CommunityPage() {
   return (
-    <div className="min-h-screen relative">
+    <div className="relative min-h-screen">
       <Hero />
 
-      <section className="py-8 relative">
+      <section className="relative py-8">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl">
             <VideoGrid />
           </div>
         </div>

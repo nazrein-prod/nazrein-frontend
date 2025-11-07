@@ -11,10 +11,11 @@ interface PageProps {
 
 export default async function VideoInfoPage({ params }: PageProps) {
   const { id } = await params;
+
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-3xl lg:max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="container mx-auto max-w-3xl px-4 py-8 lg:max-w-7xl">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
             {/* FIX: VideoDetails sekeleton */}
             <Suspense fallback={<h1>Loading...</h1>}>

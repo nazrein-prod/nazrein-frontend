@@ -76,7 +76,7 @@ export default function VideoInput() {
   }
 
   return (
-    <Card className="shadow-none border-none bg-transparent text-secondary">
+    <Card className="text-secondary border-none bg-transparent shadow-none">
       <CardHeader className="text-center">
         <CardTitle className="flex items-center justify-center gap-2 text-4xl font-bold">
           Submit Videos
@@ -95,10 +95,10 @@ export default function VideoInput() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="flex w-full md:max-w-xl xl:max-w-3xl items-center gap-2 relative mx-auto">
+                    <div className="relative mx-auto flex w-full items-center gap-2 md:max-w-xl xl:max-w-3xl">
                       <Input
                         placeholder={`Paste youtube video link...`}
-                        className="p-6 rounded-full pr-24"
+                        className="rounded-full p-6 pr-24"
                         disabled={isPending}
                         {...field}
                       />
@@ -106,7 +106,7 @@ export default function VideoInput() {
                         type="submit"
                         variant="outline"
                         disabled={isPending}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full shadow-none border-none cursor-pointer bg-black text-white hover:bg-black hover:text-white"
+                        className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer rounded-full border-none bg-black text-white shadow-none hover:bg-black hover:text-white"
                       >
                         {isPending ? "Loading..." : "Submit"}
                       </Button>

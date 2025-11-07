@@ -3,5 +3,5 @@ export default function VideoInfoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="w-full flex flex-col flex-1">{children}</div>;
+  return <div className="flex w-full flex-1 flex-col">{children}</div>;
 }

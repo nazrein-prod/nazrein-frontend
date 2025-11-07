@@ -2,7 +2,6 @@
 
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { env } from "next-runtime-env";
 
 export async function submitVideoRequest(
   link: string,
@@ -11,17 +10,20 @@ export async function submitVideoRequest(
   const cookieHeader = (await cookies()).toString();
 
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/request`, {
-      method: "POST",
-      body: JSON.stringify({
-        link,
-        youtube_id,
-      }),
-      headers: {
-        Cookie: decodeURIComponent(cookieHeader),
-        Origin: env("NEXT_PUBLIC_ORIGIN")!,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/request`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          link,
+          youtube_id,
+        }),
+        headers: {
+          Cookie: decodeURIComponent(cookieHeader),
+          Origin: process.env.NEXT_PUBLIC_ORIGIN!,
+        },
       },
-    });
+    );
 
     if (!response.ok) return null;
     return response.json();
@@ -38,13 +40,16 @@ export async function deleteVideoRequest(
 ): Promise<{ message: string }> {
   const cookieHeader = (await cookies()).toString();
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/request/${id}`, {
-      method: "DELETE",
-      headers: {
-        Cookie: decodeURIComponent(cookieHeader),
-        Origin: env("NEXT_PUBLIC_ORIGIN")!,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Cookie: decodeURIComponent(cookieHeader),
+          Origin: process.env.NEXT_PUBLIC_ORIGIN!,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       const errorData = await response.json();

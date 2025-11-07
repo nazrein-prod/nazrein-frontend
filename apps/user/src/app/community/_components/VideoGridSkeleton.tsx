@@ -2,30 +2,30 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function VideoGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: 4 }).map((_, idx) => (
         <Card
           key={idx}
-          className="h-72 animate-pulse p-0 bg-primary border-secondary/30 overflow-hidden"
+          className="bg-primary border-secondary/30 h-72 animate-pulse overflow-hidden p-0"
         >
-          <CardContent className="p-0 flex flex-col h-full ">
-            <div className="relative aspect-video bg-primary rounded-t-lg" />
+          <CardContent className="flex h-full flex-col p-0">
+            <div className="bg-primary relative aspect-video rounded-t-lg" />
 
-            <div className="p-4 space-y-3 flex-1 flex flex-col">
+            <div className="flex flex-1 flex-col space-y-3 p-4">
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-secondary rounded w-3/4" />
-                <div className="h-3 bg-secondary rounded w-1/2" />
+                <div className="bg-secondary h-4 w-3/4 rounded" />
+                <div className="bg-secondary h-3 w-1/2 rounded" />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1">
-                    <div className="h-3 w-3 bg-secondary rounded-full" />
-                    <div className="h-3 w-6 bg-secondary rounded" />
+                    <div className="bg-secondary h-3 w-3 rounded-full" />
+                    <div className="bg-secondary h-3 w-6 rounded" />
                   </div>
                   <div className="flex items-center gap-1">
-                    <div className="h-3 w-3 bg-secondary rounded-full" />
-                    <div className="h-3 w-6 bg-secondary rounded" />
+                    <div className="bg-secondary h-3 w-3 rounded-full" />
+                    <div className="bg-secondary h-3 w-6 rounded" />
                   </div>
                 </div>
               </div>

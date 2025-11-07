@@ -90,24 +90,24 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="max-w-4xl mx-auto text-center"
+          className="mx-auto max-w-4xl text-center"
         >
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <WandSparkles className="h-8 w-8 " />
-            <h1 className="text-4xl md:text-6xl font-bold  pb-4">
+          <div className="mb-6 flex items-center justify-center gap-2">
+            <WandSparkles className="h-8 w-8" />
+            <h1 className="pb-4 text-4xl font-bold md:text-6xl">
               Community Nazars
             </h1>
           </div>
-          <div className="flex items-center justify-center gap-2 text-lg md:text-xl  mb-8 max-w-2xl mx-auto -mt-4">
+          <div className="mx-auto -mt-4 mb-8 flex max-w-2xl items-center justify-center gap-2 text-lg md:text-xl">
             <p>Discover what others are watching</p>
           </div>
 
-          <div className="max-w-2xl mx-auto flex flex-col gap-6 items-center justify-center">
+          <div className="mx-auto flex max-w-2xl flex-col items-center justify-center gap-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="w-full max-w-2xl mx-auto"
+              className="mx-auto w-full max-w-2xl"
             >
               <div className="relative">
                 <Input
@@ -118,7 +118,7 @@ export default function Hero() {
                     setSearchQuery(e.target.value);
                     setShowSuggestions(true);
                   }}
-                  className="h-14 text-lg pr-6 pl-24 rounded-full border-2 border-gray-500 focus:border-secondary shadow-lg selection:bg-secondary selection:text-primary"
+                  className="focus:border-secondary selection:bg-secondary selection:text-primary h-14 rounded-full border-2 border-gray-500 pr-6 pl-24 text-lg shadow-lg"
                   maxLength={500}
                   onBlur={() => setShowSuggestions(false)}
                   onFocus={() => {
@@ -136,7 +136,7 @@ export default function Hero() {
                 <Button
                   variant="outline"
                   size={"sm"}
-                  className="absolute right-2 top-2 h-10 px-4 bg-primary text-secondary hover:bg-gray-800 hover:text-secondary rounded-full cursor-pointer"
+                  className="bg-primary text-secondary hover:text-secondary absolute top-2 right-2 h-10 cursor-pointer rounded-full px-4 hover:bg-gray-800"
                 >
                   <Search size={14} />
                 </Button>
@@ -147,7 +147,7 @@ export default function Hero() {
                       variant="outline"
                       size={"sm"}
                       role="combobox"
-                      className="absolute left-2 top-2 h-10 px-4 bg-primary text-secondary hover:bg-gray-800 hover:text-secondary rounded-full cursor-pointer w-20"
+                      className="bg-primary text-secondary hover:text-secondary absolute top-2 left-2 h-10 w-20 cursor-pointer rounded-full px-4 hover:bg-gray-800"
                     >
                       {searchTopic}
                     </Button>
@@ -196,10 +196,10 @@ export default function Hero() {
               <Button
                 onClick={() => setSortBy("popular")}
                 className={cn(
-                  "gap-2 rounded-full cursor-pointer",
+                  "cursor-pointer gap-2 rounded-full",
                   sortBy === "popular"
                     ? "bg-secondary text-primary hover:bg-secondary hover:text-primary border"
-                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary",
+                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border-secondary border",
                 )}
                 size="sm"
               >
@@ -209,10 +209,10 @@ export default function Hero() {
               <Button
                 onClick={() => setSortBy("recent")}
                 className={cn(
-                  "gap-2 rounded-full cursor-pointer",
+                  "cursor-pointer gap-2 rounded-full",
                   sortBy === "recent"
                     ? "bg-secondary text-primary hover:bg-secondary hover:text-primary border"
-                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border border-secondary",
+                    : "bg-primary text-secondary hover:bg-primary hover:text-secondary border-secondary border",
                 )}
                 size="sm"
               >

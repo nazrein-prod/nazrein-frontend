@@ -12,11 +12,11 @@ export async function VideoDetails({ videoID }: { videoID: string }) {
 
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold leading-tight mb-3">
+          <h1 className="mb-3 text-2xl leading-tight font-bold md:text-3xl">
             {video?.data.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
+          <div className="text-muted-foreground mb-4 flex flex-wrap items-center gap-4 text-sm">
             <div className="flex items-center gap-1">
               <User className="h-4 w-4" />
               <span className="font-medium">{video?.data.channel_title}</span>

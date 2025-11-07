@@ -79,13 +79,13 @@ export function VideoCard({ video }: { video: Video }) {
     >
       <Link href={`/community/${video.id}`}>
         <Card
-          className="group cursor-pointer transition-all duration-300 p-0  h-72 shadow-none border-[rgba(150,150,150,0.8)] border-none text-background"
+          className="group text-background h-72 cursor-pointer border-none border-[rgba(150,150,150,0.8)] p-0 shadow-none transition-all duration-300"
           style={{
             background:
               "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(226, 232, 240, 0.15), transparent 70%), #1a1a1a",
           }}
         >
-          <CardContent className="p-0 flex flex-col h-full">
+          <CardContent className="flex h-full flex-col p-0">
             <div
               className="relative aspect-video overflow-hidden rounded-t-xl"
               onMouseEnter={() => setIsHovered(true)}
@@ -95,19 +95,19 @@ export function VideoCard({ video }: { video: Video }) {
                 src={video.thumbnail || "/placeholder.svg"}
                 alt={video.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105 overflow-hidden"
+                className="overflow-hidden object-cover transition-transform duration-300 group-hover:scale-105"
                 // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
 
               <div
-                className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 ${
+                className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-300 ${
                   isHovered ? "opacity-100" : "opacity-0"
                 }`}
               >
                 <Button
                   size="icon"
                   variant="secondary"
-                  className="h-12 w-12 rounded-full bg-white/60 hover:bg-white shadow-lg"
+                  className="h-12 w-12 rounded-full bg-white/60 shadow-lg hover:bg-white"
                   onClick={handleBookmarkClick}
                 >
                   <Bookmark
@@ -121,12 +121,12 @@ export function VideoCard({ video }: { video: Video }) {
               </div>
             </div>
 
-            <div className="p-4 space-y-3 flex-1 flex flex-col">
+            <div className="flex flex-1 flex-col space-y-3 p-4">
               <div className="flex-1">
-                <h3 className="font-semibold text-sm leading-tight line-clamp-2 mb-1 text-secondary/80">
+                <h3 className="text-secondary/80 mb-1 line-clamp-2 text-sm leading-tight font-semibold">
                   {video.title}
                 </h3>
-                <p className="text-muted-foreground text-xs line-clamp-1">
+                <p className="text-muted-foreground line-clamp-1 text-xs">
                   {video.channel_title}
                 </p>
               </div>
@@ -134,14 +134,14 @@ export function VideoCard({ video }: { video: Video }) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1">
-                    <Eye className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">
+                    <Eye className="text-muted-foreground h-3 w-3" />
+                    <span className="text-muted-foreground text-xs">
                       {video.visits}
                     </span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Pin className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">
+                    <Pin className="text-muted-foreground h-3 w-3" />
+                    <span className="text-muted-foreground text-xs">
                       {video.bookmark_count ?? 0}
                     </span>
                   </div>

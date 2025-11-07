@@ -12,13 +12,13 @@ export default function DashboardMetrics() {
   });
 
   const pendingCount = requests?.data?.filter(
-    (r) => r.status === "PENDING",
+    (r) => r.status === "PENDING"
   ).length;
   const acceptedCount = requests?.data?.filter(
-    (r) => r.status === "ACCEPTED",
+    (r) => r.status === "ACCEPTED"
   ).length;
   const rejectedCount = requests?.data?.filter(
-    (r) => r.status === "REJECTED",
+    (r) => r.status === "REJECTED"
   ).length;
   const totalUsers = new Set(requests?.data?.map((r) => r.user.id)).size;
 
