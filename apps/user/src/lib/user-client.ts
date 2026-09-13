@@ -1,21 +1,13 @@
-import { env } from "next-runtime-env";
-import { SessionUser } from "./types";
+import { api } from "./api";
+import type { SessionUser } from "./types";
 
 export async function getClientSideSession(): Promise<{
   data: SessionUser;
 } | null> {
-  try {
-    const response = await fetch(
-      `${env("NEXT_PUBLIC_BACKEND_URL")}/auth/user`,
-      {
-        credentials: "include",
-      },
-    );
+  const { data, error } = await api().GET("/auth/user", {});
 
-    if (!response.ok) return null;
-    return await response.json();
-  } catch (error) {
-    console.error("Client-side auth check failed:", error);
+  if (error !== undefined || data === undefined) {
     return null;
   }
+  return data;
 }

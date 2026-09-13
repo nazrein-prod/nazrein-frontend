@@ -1,45 +1,33 @@
 "use server";
 
-import { SingleVideoResponse, VideoAnalyticsResponse } from "@/lib/types";
+import { serverApi } from "@/lib/api";
+import type { SingleVideoResponse, VideoAnalyticsResponse } from "@/lib/types";
 
 export async function getVideoInfo(
   videoID: string,
 ): Promise<SingleVideoResponse | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/public/videos/${videoID}`,
-      {
-        headers: {
-          Origin: process.env.NEXT_PUBLIC_ORIGIN!,
-        },
-      },
-    );
+  const { data, error } = await serverApi().GET("/api/v1/public/videos/{id}", {
+    params: { path: { id: videoID } },
+  });
 
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching community videos", error);
+  if (error !== undefined || data === undefined) {
+    console.error("Error fetching video info", error);
     return null;
   }
+  return data;
 }
 
 export async function getVideoAnalytics(
   videoID: string,
 ): Promise<VideoAnalyticsResponse | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/public/videos/analytics/${videoID}`,
-      {
-        headers: {
-          Origin: process.env.NEXT_PUBLIC_ORIGIN!,
-        },
-      },
-    );
+  const { data, error } = await serverApi().GET(
+    "/api/v1/public/videos/analytics/{id}",
+    { params: { path: { id: videoID } } },
+  );
 
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching community videos", error);
+  if (error !== undefined || data === undefined) {
+    console.error("Error fetching video analytics", error);
     return null;
   }
+  return data;
 }

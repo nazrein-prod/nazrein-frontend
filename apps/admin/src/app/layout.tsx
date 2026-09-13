@@ -35,8 +35,8 @@ export default async function RootLayout({
       >
         <QueryProvider>
           {/* <AuthProvider initialAdmin={initialAdmin}> */}
-          <div className="flex flex-col min-h-screen bg-white">
-            <main className="flex-1 flex">{children}</main>
+          <div className="flex min-h-screen flex-col bg-white">
+            <main className="flex flex-1">{children}</main>
             <Toaster richColors position="top-center" />
           </div>
           {/* </AuthProvider> */}

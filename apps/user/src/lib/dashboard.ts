@@ -1,21 +1,14 @@
-import { env } from "next-runtime-env";
-import { DashboardMetricsResponse } from "./types";
+import { api } from "./api";
+import type { DashboardMetricsResponse } from "./types";
 
 export async function getDashboardMetrics(): Promise<
   DashboardMetricsResponse | undefined
 > {
-  try {
-    const response = await fetch(
-      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/dashboard/metrics`,
-      {
-        credentials: "include",
-      },
-    );
+  const { data, error } = await api().GET("/api/v1/dashboard/metrics", {});
 
-    if (!response.ok) return undefined;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching tracked videos", error);
+  if (error !== undefined || data === undefined) {
+    console.error("Error fetching dashboard metrics", error);
     return undefined;
   }
+  return data;
 }

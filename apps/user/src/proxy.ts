@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "next-runtime-env";
+
+import { serverApi } from "@/lib/api";
 
 export const privateRoutes = ["/dashboard"];
 
@@ -18,14 +19,11 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    const resp = await fetch(`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/user`, {
-      headers: {
-        Cookie: `nazrein_session=${session.value}`,
-        Origin: env("NEXT_PUBLIC_ORIGIN")!,
-      },
-    });
+    const { error } = await serverApi({
+      Cookie: `nazrein_session=${session.value}`,
+    }).GET("/auth/user", {});
 
-    if (!resp.ok) {
+    if (error !== undefined) {
       return NextResponse.redirect(new URL("/", request.nextUrl.origin));
     }
   } catch (error) {

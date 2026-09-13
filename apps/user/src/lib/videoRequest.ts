@@ -1,82 +1,38 @@
-import { env } from "next-runtime-env";
-import { VideoRequestResponse } from "./types";
+import { unwrap } from "@repo/api-client";
+
+import { api } from "./api";
+import type { VideoRequestResponse } from "./types";
 
 export async function fetchVideoRequests(): Promise<VideoRequestResponse | null> {
-  try {
-    const response = await fetch(
-      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request`,
-      {
-        credentials: "include",
-      },
-    );
+  const { data, error } = await api().GET("/api/v1/request", {});
 
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching user data", error);
+  if (error !== undefined || data === undefined) {
+    console.error("Error fetching video requests", error);
     return null;
   }
+  return data;
 }
 
 export async function submitVideoRequest(
   link: string,
   youtube_id: string,
 ): Promise<{ message: string }> {
-  try {
-    const response = await fetch(
-      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          link,
-          youtube_id,
-        }),
-        credentials: "include",
-      },
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Error submitting video request:", error);
-
-    if (error instanceof Error) {
-      throw error;
-    }
-
-    throw new Error("Failed to submit video request. Please try again.");
-  }
+  // openapi-fetch serialises `body` and sets Content-Type: application/json.
+  // The previous hand-written fetch sent the JSON without that header, which
+  // the API's spec validator now rejects.
+  return unwrap(
+    await api().POST("/api/v1/request", { body: { link, youtube_id } }),
+    "Submit video request",
+  );
 }
 
 export async function deleteVideoRequest(
   id: string,
 ): Promise<{ message: string }> {
-  try {
-    const response = await fetch(
-      `${env("NEXT_PUBLIC_BACKEND_URL")}/api/v1/request/${id}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      },
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Error deleting video request:", error);
-
-    if (error instanceof Error) {
-      throw error;
-    }
-
-    throw new Error("Failed to delete video request. Please try again.");
-  }
+  return unwrap(
+    await api().DELETE("/api/v1/request/{id}", {
+      params: { path: { id } },
+    }),
+    "Delete video request",
+  );
 }

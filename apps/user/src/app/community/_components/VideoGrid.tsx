@@ -27,8 +27,8 @@ export function VideoGrid() {
     queryFn: ({ pageParam = 1 }) =>
       getCommunityVideos(query, sortBy, searchType, pageParam),
     getNextPageParam: (lastPage) => {
-      if (!lastPage || !lastPage.hasMore) return undefined;
-      return lastPage.page + 1;
+      if (!lastPage || !lastPage.data.has_more) return undefined;
+      return lastPage.data.page + 1;
     },
     initialPageParam: 1,
   });

@@ -29,10 +29,10 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse" />
-          <div className="hidden md:block w-20 h-4 bg-gray-200 rounded animate-pulse" />
+          <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+          <div className="hidden h-4 w-20 animate-pulse rounded bg-gray-200 md:block" />
         </div>
       </div>
     );
@@ -40,14 +40,14 @@ export default function Home() {
 
   if (!session || isError) {
     return (
-      <div className="h-screen w-full flex items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <Link
           href={`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/admin/google/login`}
           className="flex items-center space-x-2"
         >
           <Button
             size="sm"
-            className="cursor-pointer bg-primary text-secondary hover:bg-primary hover:text-secondary"
+            className="bg-primary text-secondary hover:bg-primary hover:text-secondary cursor-pointer"
           >
             <LogIn size="16" />
             <p>Sign In</p>
@@ -58,29 +58,29 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-4 items-center justify-center">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4">
       Admin
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex items-center md:space-x-3 cursor-pointer text-secondary">
+          <div className="text-secondary flex cursor-pointer items-center md:space-x-3">
             {session.data.image ? (
               <Avatar>
                 <AvatarImage src={session.data.image} alt={session.data.name} />
                 <AvatarFallback>NA</AvatarFallback>
               </Avatar>
             ) : (
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4 text-muted-foreground" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
+                <User className="text-muted-foreground h-4 w-4" />
               </div>
             )}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           sideOffset={10}
-          className="mr-4 md:mr-8 bg-almond dark:bg-charcoal dark:text-almond"
+          className="bg-almond dark:bg-charcoal dark:text-almond mr-4 md:mr-8"
         >
           <DropdownMenuLabel className="p-0 font-normal">
-            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm ">
+            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={session.data.image} alt={session.data.name} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -99,7 +99,7 @@ export default function Home() {
           <DropdownMenuItem asChild>
             <Link
               href={`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/admin/google/logout`}
-              className="cursor-pointer focus:bg-almond-darker  dark:focus:bg-almond dark:focus:text-charcoal"
+              className="focus:bg-almond-darker dark:focus:bg-almond dark:focus:text-charcoal cursor-pointer"
             >
               <LogOut className="hover:text-charcoal" />
               Log out

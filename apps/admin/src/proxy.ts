@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "next-runtime-env";
+
+import { serverApi } from "@/lib/api";
 
 export const privateRoutes = ["/dashboard"];
 
@@ -18,20 +19,15 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    const resp = await fetch(`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/admin`, {
-      headers: {
-        Cookie: `nazrein_admin_session=${session.value}`,
-        Origin: env("NEXT_PUBLIC_ADMIN_ORIGIN")!,
-      },
-    });
+    const { error } = await serverApi({
+      Cookie: `nazrein_admin_session=${session.value}`,
+    }).GET("/auth/admin", {});
 
-    if (!resp.ok) {
+    if (error !== undefined) {
       return NextResponse.redirect(new URL("/", request.nextUrl.origin));
     }
   } catch (error) {
     // Fail closed: if we cannot confirm the session, treat it as signed out.
-    // Previously an exception here escaped and surfaced as a 500 rather than a
-    // redirect to login.
     console.error("Error checking admin session:", error);
     return NextResponse.redirect(new URL("/", request.nextUrl.origin));
   }

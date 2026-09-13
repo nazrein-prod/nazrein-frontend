@@ -6,8 +6,8 @@ import Balancer from "react-wrap-balancer";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col w-full">
-      <section className="flex-1 relative">
+    <div className="flex w-full flex-col">
+      <section className="relative flex-1">
         <div className="container mx-auto px-4 py-16">
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.8 }}
@@ -21,19 +21,16 @@ export default function Hero() {
               duration: 1,
               bounce: 0,
             }}
-            className="max-w-4xl mx-auto text-center"
+            className="mx-auto max-w-4xl text-center"
           >
-            <div className="flex items-center justify-center gap-2 mb-6">
+            <div className="mb-6 flex items-center justify-center gap-2">
               <Sparkle size={16} />
               <EyeClosed size={32} className="mt-2" />
-              <h1 className="text-6xl font-bold font-urbanist">Nazars</h1>
+              <h1 className="font-urbanist text-6xl font-bold">Nazars</h1>
               <Eye size={32} className="mt-2" />
               <Sparkles size={16} />
             </div>
-            <Balancer
-              ratio={0.65}
-              className="text-lg md:text-xl  mb-8  mx-auto"
-            >
+            <Balancer ratio={0.65} className="mx-auto mb-8 text-lg md:text-xl">
               <motion.p
                 initial={{ opacity: 0, y: 40, scale: 0.8 }}
                 animate={{

@@ -96,7 +96,7 @@ export default function AdminRequestsTable() {
         session?.data.id,
         requestID,
         "REJECTED",
-        reason
+        reason,
       );
     },
     onSuccess: () => {
@@ -126,7 +126,7 @@ export default function AdminRequestsTable() {
     requestId: string,
     link: string,
     youtube_id: string,
-    user_id: string
+    user_id: string,
   ) {
     mutate({ request_id: requestId, link, youtube_id, user_id });
   }
@@ -138,7 +138,7 @@ export default function AdminRequestsTable() {
   async function handleRejectWithReason(
     requestID: string,
     reason: string,
-    userID: string
+    userID: string,
   ) {
     updateVideoRequestMutation({ requestID, reason, userID });
     setRejectionModal({ isOpen: false, requestID: "", userID: "" });
@@ -152,7 +152,7 @@ export default function AdminRequestsTable() {
             variant="secondary"
             className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
           >
-            <Clock className="h-3 w-3 mr-1" />
+            <Clock className="mr-1 h-3 w-3" />
             Pending
           </Badge>
         );
@@ -162,7 +162,7 @@ export default function AdminRequestsTable() {
             variant="default"
             className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
           >
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircle className="mr-1 h-3 w-3" />
             Accepted
           </Badge>
         );
@@ -172,7 +172,7 @@ export default function AdminRequestsTable() {
             variant="destructive"
             className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
           >
-            <XCircle className="h-3 w-3 mr-1" />
+            <XCircle className="mr-1 h-3 w-3" />
             Rejected
           </Badge>
         );
@@ -200,13 +200,13 @@ export default function AdminRequestsTable() {
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="flex items-center gap-2">
             <Filter className="h-5 w-5" />
             Video Requests
           </CardTitle>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full sm:w-40">
                 <SelectValue placeholder="Filter by status" />
@@ -239,7 +239,7 @@ export default function AdminRequestsTable() {
                 <TableRow>
                   <TableCell
                     colSpan={5}
-                    className="text-center py-8 text-muted-foreground"
+                    className="text-muted-foreground py-8 text-center"
                   >
                     No requests found matching your criteria.
                   </TableCell>
@@ -251,17 +251,17 @@ export default function AdminRequestsTable() {
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-medium text-sm line-clamp-2 mb-1">
+                          <h4 className="mb-1 line-clamp-2 text-sm font-medium">
                             {request.id}
                           </h4>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-muted-foreground text-xs">
                             {request.link}
                           </p>
                           <a
                             href={request.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
+                            className="text-primary mt-1 inline-flex items-center gap-1 text-xs hover:underline"
                           >
                             View Video <ExternalLink className="h-3 w-3" />
                           </a>
@@ -271,7 +271,7 @@ export default function AdminRequestsTable() {
 
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Avatar className="h-8 w-8 rounded-full overflow-hidden">
+                        <Avatar className="h-8 w-8 overflow-hidden rounded-full">
                           <AvatarImage
                             src={request.user.image || "/placeholder.svg"}
                             alt={request.user.name}
@@ -281,10 +281,10 @@ export default function AdminRequestsTable() {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-medium text-sm">
+                          <p className="text-sm font-medium">
                             {request.user.name}
                           </p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-muted-foreground text-xs">
                             {request.user.videos_tracked}/
                             {request.user.track_limit} tracked
                           </p>
@@ -314,13 +314,13 @@ export default function AdminRequestsTable() {
                                 request.id,
                                 request.link,
                                 request.youtube_id,
-                                request.user.id
+                                request.user.id,
                               )
                             }
                             disabled={isPending}
-                            className="bg-green-600 hover:bg-green-700 cursor-pointer"
+                            className="cursor-pointer bg-green-600 hover:bg-green-700"
                           >
-                            <CheckCircle className="h-4 w-4 mr-1" />
+                            <CheckCircle className="mr-1 h-4 w-4" />
                             Approve
                           </Button>
                           <Button
@@ -331,12 +331,12 @@ export default function AdminRequestsTable() {
                             }
                             className="cursor-pointer"
                           >
-                            <XCircle className="h-4 w-4 mr-1" />
+                            <XCircle className="mr-1 h-4 w-4" />
                             Reject
                           </Button>
                         </div>
                       ) : (
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-muted-foreground text-sm">
                           {request.status === "ACCEPTED"
                             ? "Approved"
                             : "Rejected"}
@@ -360,7 +360,7 @@ export default function AdminRequestsTable() {
           handleRejectWithReason(
             rejectionModal.requestID,
             reason,
-            rejectionModal.userID
+            rejectionModal.userID,
           )
         }
       />

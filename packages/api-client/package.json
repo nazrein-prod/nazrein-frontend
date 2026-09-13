@@ -1,0 +1,23 @@
+{
+  "name": "@repo/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.d.ts"
+  },
+  "scripts": {
+    "codegen": "openapi-typescript ./openapi.yaml -o ./src/schema.d.ts",
+    "sync-spec": "cp ../../../server/api/openapi.yaml ./openapi.yaml",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.15.1"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.9.3"
+  }
+}

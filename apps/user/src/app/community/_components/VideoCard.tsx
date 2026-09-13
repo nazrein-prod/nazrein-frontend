@@ -6,14 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Eye, Pin, Bookmark } from "lucide-react";
 import { useState } from "react";
-import { Video } from "@/lib/types";
+import { VideoListItem } from "@/lib/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addBookmark, deleteBookmark } from "@/lib/bookmark";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 import { getClientSideSession } from "@/lib/user-client";
 
-export function VideoCard({ video }: { video: Video }) {
+export function VideoCard({ video }: { video: VideoListItem }) {
   const { data: session } = useQuery({
     queryKey: ["session"],
     queryFn: getClientSideSession,

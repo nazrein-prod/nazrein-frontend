@@ -12,13 +12,13 @@ export default function DashboardMetrics() {
   });
 
   const pendingCount = requests?.data?.filter(
-    (r) => r.status === "PENDING"
+    (r) => r.status === "PENDING",
   ).length;
   const acceptedCount = requests?.data?.filter(
-    (r) => r.status === "ACCEPTED"
+    (r) => r.status === "ACCEPTED",
   ).length;
   const rejectedCount = requests?.data?.filter(
-    (r) => r.status === "REJECTED"
+    (r) => r.status === "REJECTED",
   ).length;
   const totalUsers = new Set(requests?.data?.map((r) => r.user.id)).size;
 
@@ -32,7 +32,7 @@ export default function DashboardMetrics() {
           <Clock className="h-4 w-4 text-orange-500" />
         </CardHeader>
         <CardContent>
-          <div className="min-h-[2.5rem] flex items-center">
+          <div className="flex min-h-[2.5rem] items-center">
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -41,7 +41,7 @@ export default function DashboardMetrics() {
               </div>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">Awaiting review</p>
+          <p className="text-muted-foreground text-xs">Awaiting review</p>
         </CardContent>
       </Card>
 
@@ -51,7 +51,7 @@ export default function DashboardMetrics() {
           <CheckCircle className="h-4 w-4 text-green-500" />
         </CardHeader>
         <CardContent>
-          <div className="min-h-[2.5rem] flex items-center">
+          <div className="flex min-h-[2.5rem] items-center">
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -60,7 +60,7 @@ export default function DashboardMetrics() {
               </div>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">Approved for tracking</p>
+          <p className="text-muted-foreground text-xs">Approved for tracking</p>
         </CardContent>
       </Card>
 
@@ -70,7 +70,7 @@ export default function DashboardMetrics() {
           <XCircle className="h-4 w-4 text-red-500" />
         </CardHeader>
         <CardContent>
-          <div className="min-h-[2.5rem] flex items-center">
+          <div className="flex min-h-[2.5rem] items-center">
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -79,7 +79,7 @@ export default function DashboardMetrics() {
               </div>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">Declined requests</p>
+          <p className="text-muted-foreground text-xs">Declined requests</p>
         </CardContent>
       </Card>
 
@@ -89,7 +89,7 @@ export default function DashboardMetrics() {
           <Users className="h-4 w-4 text-blue-500" />
         </CardHeader>
         <CardContent>
-          <div className="min-h-[2.5rem] flex items-center">
+          <div className="flex min-h-[2.5rem] items-center">
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -98,7 +98,7 @@ export default function DashboardMetrics() {
               </div>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">Making requests</p>
+          <p className="text-muted-foreground text-xs">Making requests</p>
         </CardContent>
       </Card>
     </>

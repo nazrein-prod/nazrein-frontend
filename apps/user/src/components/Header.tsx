@@ -19,8 +19,8 @@ export default function Header() {
   });
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-primary">
-      <div className="container mx-auto pl-8 pr-4 md:px-4 py-4 flex justify-between items-center">
+    <header className="bg-primary sticky top-0 z-50 w-full">
+      <div className="container mx-auto flex items-center justify-between py-4 pr-4 pl-8 md:px-4">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-black">nazrein</span>
         </Link>
@@ -46,16 +46,16 @@ export default function Header() {
         <div
           style={{ top: "70px", height: "calc(100dvh - 72px)" }}
           className={cn(
-            "fixed inset-0 h-dvh flex-1 flex-col overflow-y-auto p-4 bg-neutral-900",
+            "fixed inset-0 h-dvh flex-1 flex-col overflow-y-auto bg-neutral-900 p-4",
             isOpen ? "pointer-events-auto" : "pointer-events-none",
             "md:hidden",
           )}
         >
-          <nav className="w-full flex flex-col gap-4 font-medium text-secondary px-8 py-4">
+          <nav className="text-secondary flex w-full flex-col gap-4 px-8 py-4 font-medium">
             {session && (
               <Link
                 href="/dashboard"
-                className="flex text-secondary items-center p-4 justify-between cursor-pointer hover:bg-secondary hover:text-primary"
+                className="text-secondary hover:bg-secondary hover:text-primary flex cursor-pointer items-center justify-between p-4"
                 onClick={() => setIsOpen(false)}
               >
                 <span>Dashboard</span>
@@ -64,7 +64,7 @@ export default function Header() {
             )}
             <Link
               href="/community"
-              className="flex text-secondary items-center p-4 justify-between cursor-pointer hover:bg-secondary hover:text-primary"
+              className="text-secondary hover:bg-secondary hover:text-primary flex cursor-pointer items-center justify-between p-4"
               onClick={() => setIsOpen(false)}
             >
               <span>Community</span>

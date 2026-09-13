@@ -16,10 +16,47 @@ jobs:
       workspace_name: admin
       base_ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || 'HEAD~1' }}
 
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify API client codegen is up to date
+        run: |
+          pnpm --filter @repo/api-client codegen
+          if ! git diff --exit-code --stat; then
+            echo "::error::packages/api-client/src/schema.d.ts is stale. Run 'pnpm codegen:api' and commit the result."
+            exit 1
+          fi
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Check types
+        run: pnpm check-types
+
+      - name: Check formatting
+        run: pnpm format:check
+
   build-user-and-push-image:
     if: ${{ needs.user-changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
-    needs: user-changed
+    needs:
+      - user-changed
+      - verify
 
     steps:
       - name: Checkout repository
@@ -52,7 +89,9 @@ jobs:
   build-admin-and-push-image:
     if: ${{ needs.admin-changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
-    needs: admin-changed
+    needs:
+      - admin-changed
+      - verify
 
     steps:
       - name: Checkout repository
