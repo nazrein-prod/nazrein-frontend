@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Thumbnail unavailable">
+  <rect width="1280" height="720" fill="#e7ecec"/>
+  <g fill="none" stroke="#a9b8b9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="516" y="286" width="248" height="164" rx="14"/>
+    <path d="M516 404l62-56 54 48 74-70 58 52"/>
+  </g>
+  <circle cx="596" cy="336" r="17" fill="#a9b8b9"/>
+  <text x="640" y="512" fill="#6e7c7e" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="30" text-anchor="middle">Thumbnail unavailable</text>
+</svg>

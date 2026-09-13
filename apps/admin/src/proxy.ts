@@ -1,0 +1,54 @@
+import { NextRequest, NextResponse } from "next/server";
+import { env } from "next-runtime-env";
+
+export const privateRoutes = ["/dashboard"];
+
+/**
+ * Renamed from `middleware` in Next 16, which deprecated the middleware file
+ * convention in favour of `proxy`. Note this runs on the Node runtime, not Edge.
+ */
+export async function proxy(request: NextRequest) {
+  if (!isPrivateRoute(request.nextUrl.pathname)) {
+    return NextResponse.next();
+  }
+
+  const session = request.cookies.get("nazrein_admin_session");
+  if (!session) {
+    return NextResponse.redirect(new URL("/", request.nextUrl.origin));
+  }
+
+  try {
+    const resp = await fetch(`${env("NEXT_PUBLIC_BACKEND_URL")}/auth/admin`, {
+      headers: {
+        Cookie: `nazrein_admin_session=${session.value}`,
+        Origin: env("NEXT_PUBLIC_ADMIN_ORIGIN")!,
+      },
+    });
+
+    if (!resp.ok) {
+      return NextResponse.redirect(new URL("/", request.nextUrl.origin));
+    }
+  } catch (error) {
+    // Fail closed: if we cannot confirm the session, treat it as signed out.
+    // Previously an exception here escaped and surfaced as a 500 rather than a
+    // redirect to login.
+    console.error("Error checking admin session:", error);
+    return NextResponse.redirect(new URL("/", request.nextUrl.origin));
+  }
+
+  return NextResponse.next();
+}
+
+/**
+ * Matches nested paths too — an exact-equality check left `/dashboard/settings`
+ * and anything else below a private route unprotected.
+ */
+function isPrivateRoute(pathname: string) {
+  return privateRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
+}
+
+export const config = {
+  matcher: "/((?!_next|_vercel|monitoring|.*\\..*).*)",
+};
