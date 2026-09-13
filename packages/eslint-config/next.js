@@ -1,49 +1,41 @@
-import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
-import globals from "globals";
-import pluginNext from "@next/eslint-plugin-next";
-import { config as baseConfig } from "./base.js";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
+import turboPlugin from "eslint-plugin-turbo";
+import onlyWarn from "eslint-plugin-only-warn";
 
 /**
- * A custom ESLint configuration for libraries that use Next.js.
+ * Shared ESLint configuration for the Next.js apps in this monorepo.
+ *
+ * `eslint-config-next` ships native flat config as of Next 16, so the React,
+ * React Hooks and @next/next plugins no longer need assembling by hand — the
+ * two imports below cover what this file used to wire up manually.
  *
  * @type {import("eslint").Linter.Config[]}
- * */
-export const nextJsConfig = [
-  ...baseConfig,
-  js.configs.recommended,
+ */
+export const nextJsConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+
+  // Must come after the configs above so it can switch off their stylistic
+  // rules; Prettier owns formatting in this repo.
   eslintConfigPrettier,
-  ...tseslint.configs.recommended,
+
   {
-    ...pluginReact.configs.flat.recommended,
-    languageOptions: {
-      ...pluginReact.configs.flat.recommended.languageOptions,
-      globals: {
-        ...globals.serviceworker,
-      },
-    },
+    plugins: { turbo: turboPlugin },
+    rules: { "turbo/no-undeclared-env-vars": "warn" },
   },
+
+  // Downgrades everything to a warning so a lint failure never blocks a build.
+  { plugins: { onlyWarn } },
+
   {
-    plugins: {
-      "@next/next": pluginNext,
-    },
     rules: {
-      ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
-  {
-    plugins: {
-      "react-hooks": pluginReactHooks,
-    },
-    settings: { react: { version: "detect" } },
-    rules: {
-      ...pluginReactHooks.configs.recommended.rules,
-      // React scope no longer necessary with new JSX transform.
-      "react/react-in-jsx-scope": "off",
-    },
-  },
-];
+
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+]);

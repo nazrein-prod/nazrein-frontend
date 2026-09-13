@@ -43,7 +43,7 @@ export default function RequestCard({
       whileHover={{ y: -2, scale: 1.01 }}
       transition={{ duration: 0.2 }}
     >
-      <Card className="border border-gray-200 hover:border-gray-300 transition-all duration-200 hover:shadow-xl bg-white/80 backdrop-blur-sm">
+      <Card className="border border-gray-200 bg-white/80 backdrop-blur-sm transition-all duration-200 hover:border-gray-300 hover:shadow-xl">
         <CardHeader>
           <CardTitle>{v.user.name}</CardTitle>
           <CardDescription>
@@ -66,12 +66,12 @@ export default function RequestCard({
           </div>
         </CardContent>
         <CardFooter className="flex gap-2">
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex items-center justify-center gap-4">
             <Button
               type="submit"
               className={cn(
                 "cursor-pointer bg-green-500 text-black hover:bg-green-500",
-                isPending && "opacity-50 cursor-not-allowed animate-spin"
+                isPending && "animate-spin cursor-not-allowed opacity-50",
               )}
               onClick={handleRequestAccept}
             >

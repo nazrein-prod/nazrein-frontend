@@ -5,16 +5,16 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="bg-background min-h-screen">
+      <div className="container mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
+          <h1 className="mb-2 text-3xl font-bold">Admin Dashboard</h1>
           <p className="text-muted-foreground">
             Review and manage video tracking requests from users.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
           <DashboardMetrics />
         </div>
 
