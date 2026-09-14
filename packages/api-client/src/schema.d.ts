@@ -4,1070 +4,1070 @@
  */
 
 export interface paths {
-    "/auth/google/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Begin Google OAuth for a user */
-        get: operations["userOAuthLogin"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/auth/google/login": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/google/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Clear the user session */
-        get: operations["userOAuthLogout"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Begin Google OAuth for a user */
+    get: operations["userOAuthLogin"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/google/logout": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/google/callback": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Google OAuth callback for a user */
-        get: operations["userOAuthCallback"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Clear the user session */
+    get: operations["userOAuthLogout"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/google/callback": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/admin/google/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Begin Google OAuth for an admin */
-        get: operations["adminOAuthLogin"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Google OAuth callback for a user */
+    get: operations["userOAuthCallback"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/admin/google/login": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/admin/google/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Clear the admin session */
-        get: operations["adminOAuthLogout"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Begin Google OAuth for an admin */
+    get: operations["adminOAuthLogin"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/admin/google/logout": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/admin/google/callback": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Google OAuth callback for an admin */
-        get: operations["adminOAuthCallback"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Clear the admin session */
+    get: operations["adminOAuthLogout"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/admin/google/callback": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/user": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get authenticated user info */
-        get: operations["authUser"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Google OAuth callback for an admin */
+    get: operations["adminOAuthCallback"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/user": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/admin": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get authenticated admin info */
-        get: operations["authAdmin"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get authenticated user info */
+    get: operations["authUser"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/admin": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/public/videos": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List public videos */
-        get: operations["getPublicVideos"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get authenticated admin info */
+    get: operations["authAdmin"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/public/videos": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/public/videos/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get video by ID */
-        get: operations["getPublicVideoByID"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List public videos */
+    get: operations["getPublicVideos"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/public/videos/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/public/videos/autocomplete": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Autocomplete search for similar videos */
-        get: operations["getSimilarVideos"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get video by ID */
+    get: operations["getPublicVideoByID"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/public/videos/autocomplete": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/public/videos/analytics/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get snapshot timeline for a video */
-        get: operations["getVideoAnalyticsByID"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Autocomplete search for similar videos */
+    get: operations["getSimilarVideos"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/public/videos/analytics/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/dashboard/metrics": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get user dashboard metrics */
-        get: operations["getDashboardMetrics"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get snapshot timeline for a video */
+    get: operations["getVideoAnalyticsByID"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/dashboard/metrics": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/videos": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get videos submitted by the current user */
-        get: operations["getUserVideos"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get user dashboard metrics */
+    get: operations["getDashboardMetrics"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/videos": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/videos/bookmarks": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get bookmarked videos for the current user */
-        get: operations["getUserBookmarks"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get videos submitted by the current user */
+    get: operations["getUserVideos"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/videos/bookmarks": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/request": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get video requests made by the current user */
-        get: operations["getUserVideoRequests"];
-        put?: never;
-        /** Submit a video tracking request */
-        post: operations["createVideoRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get bookmarked videos for the current user */
+    get: operations["getUserBookmarks"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/request": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/request/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** Delete a video request by ID */
-        delete: operations["deleteVideoRequest"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get video requests made by the current user */
+    get: operations["getUserVideoRequests"];
+    put?: never;
+    /** Submit a video tracking request */
+    post: operations["createVideoRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/request/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/bookmark/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Bookmark a video */
-        post: operations["createBookmark"];
-        /** Remove a bookmark */
-        delete: operations["deleteBookmark"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Delete a video request by ID */
+    delete: operations["deleteVideoRequest"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/bookmark/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/admin/request": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List pending video requests (admin only) */
-        get: operations["getAdminVideoRequests"];
-        put?: never;
-        /** Approve video request and fetch details from YouTube API */
-        post: operations["approveVideoRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Bookmark a video */
+    post: operations["createBookmark"];
+    /** Remove a bookmark */
+    delete: operations["deleteBookmark"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/admin/request": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/admin/request/{request_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Reject or update a video request */
-        patch: operations["updateVideoRequest"];
-        trace?: never;
+    /** List pending video requests (admin only) */
+    get: operations["getAdminVideoRequests"];
+    put?: never;
+    /** Approve video request and fetch details from YouTube API */
+    post: operations["approveVideoRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/admin/request/{request_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Reject or update a video request */
+    patch: operations["updateVideoRequest"];
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        MessageResponse: {
-            message: string;
-        };
-        ErrorResponse: {
-            error?: string;
-            message?: string;
-        };
-        UserInfo: {
-            /** Format: uuid */
-            id: string;
-            /** Format: email */
-            email: string;
-            name: string;
-            image: string;
-            role: string;
-        };
-        UserInfoResponse: {
-            data: components["schemas"]["UserInfo"];
-        };
-        AdminInfo: {
-            /** Format: uuid */
-            id: string;
-            /** Format: email */
-            email: string;
-            name: string;
-            image: string;
-            role: string;
-        };
-        AdminInfoResponse: {
-            data: components["schemas"]["AdminInfo"];
-        };
-        Video: {
-            /** Format: uuid */
-            id: string;
-            link: string;
-            /** Format: date-time */
-            published_at: string;
-            title: string;
-            description: string;
-            thumbnail: string;
-            youtube_id: string;
-            channel_title: string;
-            channel_id: string;
-            /** Format: uuid */
-            user_id: string;
-            is_active: boolean;
-            visits: number;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            updated_at: string;
-        };
-        VideoWithCounts: components["schemas"]["Video"] & {
-            bookmark_count: number;
-        };
-        VideoListItem: components["schemas"]["VideoWithCounts"] & {
-            is_bookmarked?: boolean;
-        };
-        BookmarkedVideo: components["schemas"]["Video"] & {
-            /** Format: date-time */
-            bookmarked_at: string;
-        };
-        PublicVideosData: {
-            videos: components["schemas"]["VideoListItem"][];
-            page: number;
-            limit: number;
-            total: number;
-            has_more: boolean;
-        };
-        PublicVideosResponse: {
-            data: components["schemas"]["PublicVideosData"];
-        };
-        SingleVideoResponse: {
-            data: components["schemas"]["VideoWithCounts"];
-        };
-        UserVideosResponse: {
-            data: components["schemas"]["Video"][];
-        };
-        BookmarkedVideosResponse: {
-            data: components["schemas"]["BookmarkedVideo"][];
-        };
-        SimilarVideo: {
-            title: string;
-            channel_name: string;
-        };
-        SimilarVideosResponse: {
-            data: components["schemas"]["SimilarVideo"][];
-        };
-        VideoTimelineSnapshot: {
-            /** Format: date-time */
-            snapshot_time: string;
-            title: string;
-            image_url: string;
-            link: string;
-        };
-        VideoAnalyticsResponse: {
-            data: components["schemas"]["VideoTimelineSnapshot"][];
-        };
-        DashboardMetrics: {
-            bookmarked: number;
-            tracked: number;
-            pending: number;
-        };
-        DashboardMetricsResponse: {
-            data: components["schemas"]["DashboardMetrics"];
-        };
-        VideoRequest: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            status: "PENDING" | "ACCEPTED" | "REJECTED";
-            link: string;
-            youtube_id: string;
-            user_id: string;
-            /** Format: uuid */
-            processed_by?: string | null;
-            /** Format: date-time */
-            processed_at?: string | null;
-            rejection_reason?: string | null;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            updated_at: string;
-        };
-        VideoRequestsResponse: {
-            data: components["schemas"]["VideoRequest"][];
-        };
-        AdminUser: {
-            /** Format: uuid */
-            id: string;
-            google_id: string;
-            name: string;
-            /** Format: email */
-            email: string;
-            image: string;
-            role: string;
-            track_limit: number;
-            videos_tracked: number;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            updated_at: string;
-        };
-        AdminVideoRequest: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            status: "PENDING" | "ACCEPTED" | "REJECTED";
-            link: string;
-            youtube_id: string;
-            user: components["schemas"]["AdminUser"];
-            /** Format: date-time */
-            created_at: string;
-        };
-        AdminVideoRequestsResponse: {
-            data: components["schemas"]["AdminVideoRequest"][];
-        };
-        CreateVideoRequestInput: {
-            link: string;
-        };
-        ApproveVideoRequestInput: {
-            /** Format: uuid */
-            user_id: string;
-            /** Format: uuid */
-            request_id: string;
-            link: string;
-            youtube_id: string;
-        };
-        PatchVideoRequestInput: {
-            /** Format: uuid */
-            user_id: string;
-            /** @enum {string} */
-            status: "PENDING" | "ACCEPTED" | "REJECTED";
-            /** Format: uuid */
-            processed_by?: string | null;
-            rejection_reason?: string | null;
-        };
+  schemas: {
+    MessageResponse: {
+      message: string;
     };
-    responses: {
-        /** @description Action completed successfully */
-        MessageOK: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["MessageResponse"];
-            };
-        };
-        /** @description Invalid query, path, or body parameters */
-        BadRequest: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["ErrorResponse"];
-            };
-        };
-        /** @description Authentication required */
-        Unauthorized: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["ErrorResponse"];
-            };
-        };
-        /** @description Action forbidden */
-        Forbidden: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["ErrorResponse"];
-            };
-        };
-        /** @description Resource not found */
-        NotFound: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["ErrorResponse"];
-            };
-        };
-        /** @description Server error */
-        InternalError: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["ErrorResponse"];
-            };
-        };
+    ErrorResponse: {
+      error?: string;
+      message?: string;
     };
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    UserInfo: {
+      /** Format: uuid */
+      id: string;
+      /** Format: email */
+      email: string;
+      name: string;
+      image: string;
+      role: string;
+    };
+    UserInfoResponse: {
+      data: components["schemas"]["UserInfo"];
+    };
+    AdminInfo: {
+      /** Format: uuid */
+      id: string;
+      /** Format: email */
+      email: string;
+      name: string;
+      image: string;
+      role: string;
+    };
+    AdminInfoResponse: {
+      data: components["schemas"]["AdminInfo"];
+    };
+    Video: {
+      /** Format: uuid */
+      id: string;
+      link: string;
+      /** Format: date-time */
+      published_at: string;
+      title: string;
+      description: string;
+      thumbnail: string;
+      youtube_id: string;
+      channel_title: string;
+      channel_id: string;
+      /** Format: uuid */
+      user_id: string;
+      is_active: boolean;
+      visits: number;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+    };
+    VideoWithCounts: components["schemas"]["Video"] & {
+      bookmark_count: number;
+    };
+    VideoListItem: components["schemas"]["VideoWithCounts"] & {
+      is_bookmarked?: boolean;
+    };
+    BookmarkedVideo: components["schemas"]["Video"] & {
+      /** Format: date-time */
+      bookmarked_at: string;
+    };
+    PublicVideosData: {
+      videos: components["schemas"]["VideoListItem"][];
+      page: number;
+      limit: number;
+      total: number;
+      has_more: boolean;
+    };
+    PublicVideosResponse: {
+      data: components["schemas"]["PublicVideosData"];
+    };
+    SingleVideoResponse: {
+      data: components["schemas"]["VideoWithCounts"];
+    };
+    UserVideosResponse: {
+      data: components["schemas"]["Video"][];
+    };
+    BookmarkedVideosResponse: {
+      data: components["schemas"]["BookmarkedVideo"][];
+    };
+    SimilarVideo: {
+      title: string;
+      channel_name: string;
+    };
+    SimilarVideosResponse: {
+      data: components["schemas"]["SimilarVideo"][];
+    };
+    VideoTimelineSnapshot: {
+      /** Format: date-time */
+      snapshot_time: string;
+      title: string;
+      image_url: string;
+      link: string;
+    };
+    VideoAnalyticsResponse: {
+      data: components["schemas"]["VideoTimelineSnapshot"][];
+    };
+    DashboardMetrics: {
+      bookmarked: number;
+      tracked: number;
+      pending: number;
+    };
+    DashboardMetricsResponse: {
+      data: components["schemas"]["DashboardMetrics"];
+    };
+    VideoRequest: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      status: "PENDING" | "ACCEPTED" | "REJECTED";
+      link: string;
+      youtube_id: string;
+      user_id: string;
+      /** Format: uuid */
+      processed_by?: string | null;
+      /** Format: date-time */
+      processed_at?: string | null;
+      rejection_reason?: string | null;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+    };
+    VideoRequestsResponse: {
+      data: components["schemas"]["VideoRequest"][];
+    };
+    AdminUser: {
+      /** Format: uuid */
+      id: string;
+      google_id: string;
+      name: string;
+      /** Format: email */
+      email: string;
+      image: string;
+      role: string;
+      track_limit: number;
+      videos_tracked: number;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+    };
+    AdminVideoRequest: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      status: "PENDING" | "ACCEPTED" | "REJECTED";
+      link: string;
+      youtube_id: string;
+      user: components["schemas"]["AdminUser"];
+      /** Format: date-time */
+      created_at: string;
+    };
+    AdminVideoRequestsResponse: {
+      data: components["schemas"]["AdminVideoRequest"][];
+    };
+    CreateVideoRequestInput: {
+      link: string;
+    };
+    ApproveVideoRequestInput: {
+      /** Format: uuid */
+      user_id: string;
+      /** Format: uuid */
+      request_id: string;
+      link: string;
+      youtube_id: string;
+    };
+    PatchVideoRequestInput: {
+      /** Format: uuid */
+      user_id: string;
+      /** @enum {string} */
+      status: "PENDING" | "ACCEPTED" | "REJECTED";
+      /** Format: uuid */
+      processed_by?: string | null;
+      rejection_reason?: string | null;
+    };
+  };
+  responses: {
+    /** @description Action completed successfully */
+    MessageOK: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["MessageResponse"];
+      };
+    };
+    /** @description Invalid query, path, or body parameters */
+    BadRequest: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
+    /** @description Authentication required */
+    Unauthorized: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
+    /** @description Action forbidden */
+    Forbidden: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
+    /** @description Resource not found */
+    NotFound: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
+    /** @description Server error */
+    InternalError: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
+  };
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    userOAuthLogin: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to Google's consent screen */
-            307: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            500: components["responses"]["InternalError"];
-        };
+  userOAuthLogin: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    userOAuthLogout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to Google's consent screen */
+      307: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to the frontend */
-            303: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+        content?: never;
+      };
+      500: components["responses"]["InternalError"];
     };
-    userOAuthCallback: {
-        parameters: {
-            query?: {
-                code?: string;
-                state?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to the frontend dashboard on success */
-            303: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            400: components["responses"]["BadRequest"];
-            500: components["responses"]["InternalError"];
-        };
+  };
+  userOAuthLogout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    adminOAuthLogin: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to the frontend */
+      303: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to Google's consent screen */
-            307: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            500: components["responses"]["InternalError"];
-        };
+        content?: never;
+      };
     };
-    adminOAuthLogout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to the admin frontend */
-            303: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  userOAuthCallback: {
+    parameters: {
+      query?: {
+        code?: string;
+        state?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    adminOAuthCallback: {
-        parameters: {
-            query?: {
-                code?: string;
-                state?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to the frontend dashboard on success */
+      303: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Redirect to the admin dashboard on success */
-            303: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            400: components["responses"]["BadRequest"];
-            401: components["responses"]["Unauthorized"];
-            500: components["responses"]["InternalError"];
-        };
+        content?: never;
+      };
+      400: components["responses"]["BadRequest"];
+      500: components["responses"]["InternalError"];
     };
-    authUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User session details */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserInfoResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  adminOAuthLogin: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    authAdmin: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to Google's consent screen */
+      307: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Admin session details */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AdminInfoResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
-        };
+        content?: never;
+      };
+      500: components["responses"]["InternalError"];
     };
-    getPublicVideos: {
-        parameters: {
-            query?: {
-                page?: number;
-                limit?: number;
-                sortBy?: "popular" | "recent";
-                type?: "video" | "channel";
-                q?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated list of videos */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PublicVideosResponse"];
-                };
-            };
-            400: components["responses"]["BadRequest"];
-            500: components["responses"]["InternalError"];
-        };
+  };
+  adminOAuthLogout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getPublicVideoByID: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to the admin frontend */
+      303: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Video details */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SingleVideoResponse"];
-                };
-            };
-            400: components["responses"]["BadRequest"];
-            404: components["responses"]["NotFound"];
-            500: components["responses"]["InternalError"];
-        };
+        content?: never;
+      };
     };
-    getSimilarVideos: {
-        parameters: {
-            query: {
-                q: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Similar videos */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SimilarVideosResponse"];
-                };
-            };
-            400: components["responses"]["BadRequest"];
-        };
+  };
+  adminOAuthCallback: {
+    parameters: {
+      query?: {
+        code?: string;
+        state?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getVideoAnalyticsByID: {
-        parameters: {
-            query?: {
-                limit?: number;
-                offset?: number;
-            };
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Redirect to the admin dashboard on success */
+      303: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Timeline of snapshots */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["VideoAnalyticsResponse"];
-                };
-            };
-            400: components["responses"]["BadRequest"];
-            500: components["responses"]["InternalError"];
-        };
+        content?: never;
+      };
+      400: components["responses"]["BadRequest"];
+      401: components["responses"]["Unauthorized"];
+      500: components["responses"]["InternalError"];
     };
-    getDashboardMetrics: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Dashboard counts */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DashboardMetricsResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  authUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getUserVideos: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description User session details */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description List of user videos */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserVideosResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
+        content: {
+          "application/json": components["schemas"]["UserInfoResponse"];
         };
+      };
+      401: components["responses"]["Unauthorized"];
     };
-    getUserBookmarks: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description List of bookmarked videos */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BookmarkedVideosResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  authAdmin: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getUserVideoRequests: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Admin session details */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description User requests */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["VideoRequestsResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
+        content: {
+          "application/json": components["schemas"]["AdminInfoResponse"];
         };
+      };
+      401: components["responses"]["Unauthorized"];
     };
-    createVideoRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateVideoRequestInput"];
-            };
-        };
-        responses: {
-            200: components["responses"]["MessageOK"];
-            201: components["responses"]["MessageOK"];
-            400: components["responses"]["BadRequest"];
-            401: components["responses"]["Unauthorized"];
-            403: components["responses"]["Forbidden"];
-        };
+  };
+  getPublicVideos: {
+    parameters: {
+      query?: {
+        page?: number;
+        limit?: number;
+        sortBy?: "popular" | "recent";
+        type?: "video" | "channel";
+        q?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    deleteVideoRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Paginated list of videos */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["MessageOK"];
-            400: components["responses"]["BadRequest"];
-            401: components["responses"]["Unauthorized"];
-            403: components["responses"]["Forbidden"];
+        content: {
+          "application/json": components["schemas"]["PublicVideosResponse"];
         };
+      };
+      400: components["responses"]["BadRequest"];
+      500: components["responses"]["InternalError"];
     };
-    createBookmark: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["MessageOK"];
-            201: components["responses"]["MessageOK"];
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  getPublicVideoByID: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
     };
-    deleteBookmark: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Video details */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["MessageOK"];
-            401: components["responses"]["Unauthorized"];
+        content: {
+          "application/json": components["schemas"]["SingleVideoResponse"];
         };
+      };
+      400: components["responses"]["BadRequest"];
+      404: components["responses"]["NotFound"];
+      500: components["responses"]["InternalError"];
     };
-    getAdminVideoRequests: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Pending video requests */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AdminVideoRequestsResponse"];
-                };
-            };
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  getSimilarVideos: {
+    parameters: {
+      query: {
+        q: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    approveVideoRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Similar videos */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ApproveVideoRequestInput"];
-            };
+        content: {
+          "application/json": components["schemas"]["SimilarVideosResponse"];
         };
-        responses: {
-            200: components["responses"]["MessageOK"];
-            201: components["responses"]["MessageOK"];
-            400: components["responses"]["BadRequest"];
-            401: components["responses"]["Unauthorized"];
-        };
+      };
+      400: components["responses"]["BadRequest"];
     };
-    updateVideoRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                request_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PatchVideoRequestInput"];
-            };
-        };
-        responses: {
-            200: components["responses"]["MessageOK"];
-            400: components["responses"]["BadRequest"];
-            401: components["responses"]["Unauthorized"];
-        };
+  };
+  getVideoAnalyticsByID: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
     };
+    requestBody?: never;
+    responses: {
+      /** @description Timeline of snapshots */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["VideoAnalyticsResponse"];
+        };
+      };
+      400: components["responses"]["BadRequest"];
+      500: components["responses"]["InternalError"];
+    };
+  };
+  getDashboardMetrics: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Dashboard counts */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DashboardMetricsResponse"];
+        };
+      };
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  getUserVideos: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of user videos */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserVideosResponse"];
+        };
+      };
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  getUserBookmarks: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of bookmarked videos */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["BookmarkedVideosResponse"];
+        };
+      };
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  getUserVideoRequests: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description User requests */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["VideoRequestsResponse"];
+        };
+      };
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  createVideoRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateVideoRequestInput"];
+      };
+    };
+    responses: {
+      200: components["responses"]["MessageOK"];
+      201: components["responses"]["MessageOK"];
+      400: components["responses"]["BadRequest"];
+      401: components["responses"]["Unauthorized"];
+      403: components["responses"]["Forbidden"];
+    };
+  };
+  deleteVideoRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components["responses"]["MessageOK"];
+      400: components["responses"]["BadRequest"];
+      401: components["responses"]["Unauthorized"];
+      403: components["responses"]["Forbidden"];
+    };
+  };
+  createBookmark: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components["responses"]["MessageOK"];
+      201: components["responses"]["MessageOK"];
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  deleteBookmark: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components["responses"]["MessageOK"];
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  getAdminVideoRequests: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Pending video requests */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AdminVideoRequestsResponse"];
+        };
+      };
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  approveVideoRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ApproveVideoRequestInput"];
+      };
+    };
+    responses: {
+      200: components["responses"]["MessageOK"];
+      201: components["responses"]["MessageOK"];
+      400: components["responses"]["BadRequest"];
+      401: components["responses"]["Unauthorized"];
+    };
+  };
+  updateVideoRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        request_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PatchVideoRequestInput"];
+      };
+    };
+    responses: {
+      200: components["responses"]["MessageOK"];
+      400: components["responses"]["BadRequest"];
+      401: components["responses"]["Unauthorized"];
+    };
+  };
 }
