@@ -37,8 +37,10 @@ jobs:
       - name: Verify API client codegen is up to date
         run: |
           pnpm --filter @repo/api-client codegen
-          if ! git diff --exit-code --stat; then
+          if [ -n "$changes" ]; then
             echo "::error::packages/api-client/src/schema.d.ts is stale. Run 'pnpm codegen:api' and commit the result."
+            echo "$changes"
+            git diff -- packages/api-client/src/schema.d.ts | head -40
             exit 1
           fi
 
